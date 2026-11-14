@@ -484,8 +484,8 @@ function solicitarLocalizacao() {
 
     if (!navigator.geolocation) {
         alert(
-            "Seu navegador não oferece suporte à localização.\n\n" +
-            "Não foi possível liberar o acesso à ESPN. " +
+            "Não foi possível acessar a localização.\n\n" +
+            "Autorize a localização para acessar a ESPN.\n\n" +
             "Você continuará nesta página."
         );
         return;
@@ -520,19 +520,17 @@ function solicitarLocalizacao() {
             if (erro.code === 1) {
 
                 alert(
-                    "ACESSO À ESPN NÃO LIBERADO\n\n" +
-                    "Para acessar o site da ESPN através desta página, " +
-                    "é necessário autorizar o compartilhamento da localização.\n\n" +
-                    "Sua localização não foi autorizada. " +
+                    "Acesso ao site ESPN não autorizado.\n\n" +
+                    "Para acessar a ESPN, é necessário autorizar " +
+                    "o compartilhamento da localização.\n\n" +
                     "Você continuará nesta página."
                 );
 
             } else {
 
                 alert(
-                    "NÃO FOI POSSÍVEL OBTER A LOCALIZAÇÃO\n\n" +
-                    "Para acessar o site da ESPN através desta página, " +
-                    "é necessário autorizar a localização no navegador.\n\n" +
+                    "Não foi possível obter a localização.\n\n" +
+                    "Autorize a localização para acessar a ESPN.\n\n" +
                     "Você continuará nesta página."
                 );
 
