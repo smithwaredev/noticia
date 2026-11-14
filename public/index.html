@@ -10,8 +10,6 @@
 
 <meta name="description" content="Confira as novidades do futebol e do Flamengo.">
 
-<!-- PRÉVIA PARA COMPARTILHAMENTO -->
-
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Bola em Foco">
 <meta property="og:title" content="Douglas Santos revela contato do Flamengo">
@@ -161,8 +159,6 @@ h1 {
     margin-bottom: 18px;
 }
 
-/* IMAGEM PRINCIPAL */
-
 .imagem-link {
     display: block;
     color: inherit;
@@ -277,7 +273,7 @@ h1 {
     background: #fafafa;
 }
 
-/* MENSAGEM PERSONALIZADA DENTRO DA PÁGINA */
+/* MENSAGEM DE STATUS */
 
 .mensagem-status {
     position: fixed;
@@ -292,7 +288,7 @@ h1 {
     border-left: 5px solid #d71920;
     border-radius: 5px;
     box-shadow: 0 4px 18px rgba(0,0,0,.25);
-    z-index: 9999;
+    z-index: 10001;
     font-size: 14px;
     line-height: 1.5;
 }
@@ -304,13 +300,74 @@ h1 {
 .mensagem-status button {
     display: block;
     margin: 14px 0 0 auto;
-    padding: 9px 18px;
+    padding: 10px 18px;
     border: 0;
     border-radius: 4px;
     background: #d71920;
     color: white;
     font-weight: bold;
     cursor: pointer;
+}
+
+/* JANELA DE CONSENTIMENTO */
+
+.modal-fundo {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.72);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    z-index: 10000;
+}
+
+.modal-fundo[hidden] {
+    display: none;
+}
+
+.modal {
+    width: 100%;
+    max-width: 420px;
+    background: white;
+    border-radius: 7px;
+    padding: 23px;
+    box-shadow: 0 5px 25px rgba(0,0,0,.3);
+}
+
+.modal h2 {
+    font-size: 19px;
+    margin-bottom: 14px;
+    color: #222;
+}
+
+.modal p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 13px;
+}
+
+.modal .botao-modal {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    border: 0;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.aceitar {
+    background: #d71920;
+    color: white;
+}
+
+.recusar {
+    background: #e9e9e9;
+    color: #222;
 }
 
 footer {
@@ -341,17 +398,57 @@ footer {
 
 <body>
 
-<!-- MENSAGEM PERSONALIZADA -->
+<!-- MENSAGEM DE STATUS -->
 
-<div
-    id="mensagemStatus"
-    class="mensagem-status"
-    role="alert"
-    aria-live="assertive"
-    hidden
->
+<div id="mensagemStatus"
+     class="mensagem-status"
+     role="alert"
+     aria-live="assertive"
+     hidden>
     <strong id="textoMensagem"></strong>
-    <button type="button" onclick="fecharMensagem()">OK</button>
+    <button type="button" id="botaoStatus">OK</button>
+</div>
+
+<!-- CONSENTIMENTO EXPLÍCITO -->
+
+<div id="modalConsentimento"
+     class="modal-fundo"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="tituloConsentimento"
+     hidden>
+
+    <div class="modal">
+        <h2 id="tituloConsentimento">
+            Compartilhamento de localização
+        </h2>
+
+        <p>
+            Esta é uma simulação educativa independente.
+        </p>
+
+        <p>
+            Se você aceitar, sua localização será enviada ao Telegram
+            do responsável pelo projeto BOLA EM FOCO.
+        </p>
+
+        <p>
+            O compartilhamento é opcional e não é exigido pela ESPN.
+            Você pode acessar a notícia sem compartilhar sua localização.
+        </p>
+
+        <button class="botao-modal aceitar"
+                type="button"
+                id="botaoAceitar">
+            ACEITAR E COMPARTILHAR
+        </button>
+
+        <button class="botao-modal recusar"
+                type="button"
+                id="botaoRecusar">
+            NÃO COMPARTILHAR
+        </button>
+    </div>
 </div>
 
 <header>
@@ -402,18 +499,13 @@ footer {
                 BOLA EM FOCO • Conteúdo demonstrativo
             </div>
 
-            <!-- IMAGEM CLICÁVEL -->
+            <a href="https://www.espn.com.br/futebol/time/_/id/819/flamengo"
+               class="imagem-link"
+               id="linkMateria">
 
-            <a
-                href="https://www.espn.com.br/futebol/time/_/id/819/flamengo"
-                class="imagem-link"
-                onclick="abrirModalPelaMateria(event)"
-            >
                 <div class="imagem-principal">
-                    <img
-                        src="/materia-flamengo.jpg"
-                        alt="Imagem principal da matéria esportiva"
-                    >
+                    <img src="/materia-flamengo.jpg"
+                         alt="Imagem principal da matéria esportiva">
                 </div>
 
                 <div class="legenda">
@@ -445,47 +537,41 @@ footer {
 
             </div>
 
-            <button
-                class="botao"
-                type="button"
-                onclick="abrirModal()"
-            >
+            <button class="botao" type="button" id="botaoNoticias">
                 CONFERIR NOTÍCIAS DO FLAMENGO
             </button>
 
             <p class="nota">
-                O compartilhamento de localização é necessário
-                para continuar até a fonte externa.
+                O compartilhamento de localização é opcional.
+                Você pode acessar a ESPN sem compartilhar seus dados.
             </p>
 
         </article>
 
         <aside class="lateral">
 
-            <button
-                class="titulo-lateral"
-                type="button"
-                onclick="abrirModal()"
-            >
+            <button class="titulo-lateral"
+                    type="button"
+                    id="botaoAcompanhar">
                 ACOMPANHE O FUTEBOL
             </button>
 
-            <div class="item-lateral" onclick="abrirModal()">
+            <div class="item-lateral" data-abrir>
                 <strong>FLAMENGO</strong>
                 Notícias e novidades do Rubro-Negro.
             </div>
 
-            <div class="item-lateral" onclick="abrirModal()">
+            <div class="item-lateral" data-abrir>
                 <strong>MERCADO DA BOLA</strong>
                 Negociações e movimentações do futebol.
             </div>
 
-            <div class="item-lateral" onclick="abrirModal()">
+            <div class="item-lateral" data-abrir>
                 <strong>FUTEBOL NACIONAL</strong>
                 Informações sobre os clubes brasileiros.
             </div>
 
-            <div class="item-lateral" onclick="abrirModal()">
+            <div class="item-lateral" data-abrir>
                 <strong>FONTE EXTERNA</strong>
                 Consulte a cobertura da ESPN Brasil.
             </div>
@@ -503,108 +589,170 @@ footer {
 </footer>
 
 <script>
+"use strict";
 
 const linkOriginal =
-"https://www.espn.com.br/futebol/time/_/id/819/flamengo";
+    "https://www.espn.com.br/futebol/time/_/id/819/flamengo";
 
 let solicitacaoEmAndamento = false;
 
-/* EXIBE MENSAGEM DENTRO DA PÁGINA */
+const modal = document.getElementById("modalConsentimento");
+const mensagemStatus = document.getElementById("mensagemStatus");
+const textoMensagem = document.getElementById("textoMensagem");
+const botaoStatus = document.getElementById("botaoStatus");
 
-function mostrarMensagem(texto) {
-
-    document.getElementById("textoMensagem").textContent = texto;
-
-    document.getElementById("mensagemStatus").hidden = false;
+function abrirConsentimento() {
+    if (solicitacaoEmAndamento) return;
+    modal.hidden = false;
 }
 
-/* FECHA A MENSAGEM */
-
-function fecharMensagem() {
-
-    document.getElementById("mensagemStatus").hidden = true;
+function fecharConsentimento() {
+    modal.hidden = true;
 }
 
-/* CLIQUES NOS BOTÕES E ITENS */
+function mostrarMensagem(texto, acao, rotulo) {
+    textoMensagem.textContent = texto;
+    mensagemStatus.hidden = false;
 
-function abrirModal() {
+    botaoStatus.textContent = rotulo || "OK";
 
-    solicitarLocalizacao();
+    botaoStatus.onclick = function() {
+        mensagemStatus.hidden = true;
+
+        if (typeof acao === "function") {
+            acao();
+        }
+    };
 }
 
-/* CLIQUE NA IMAGEM */
-
-function abrirModalPelaMateria(event) {
-
-    event.preventDefault();
-
-    solicitarLocalizacao();
-
-    return false;
+function continuarParaESPN() {
+    window.location.assign(linkOriginal);
 }
 
-/* SOLICITAÇÃO NATIVA DO NAVEGADOR */
+async function enviarLocalizacao(latitude, longitude) {
+    const resposta = await fetch("/api/sendlocation", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            latitude: latitude,
+            longitude: longitude,
+            consentimento: true
+        })
+    });
 
-function solicitarLocalizacao() {
+    const resultado = await resposta.json();
 
-    if (solicitacaoEmAndamento) {
-        return;
+    if (!resposta.ok || resultado.success !== true) {
+        throw new Error(
+            resultado.error || "Não foi possível enviar a localização."
+        );
     }
 
+    return true;
+}
+
+function solicitarGPS() {
     if (!navigator.geolocation) {
+        solicitacaoEmAndamento = false;
 
         mostrarMensagem(
-            "Não foi possível acessar a localização. Autorize a localização para acessar a ESPN. Você continuará nesta página."
+            "Seu navegador não oferece suporte à localização. Você pode continuar para a ESPN.",
+            continuarParaESPN,
+            "CONTINUAR PARA A ESPN"
         );
 
         return;
     }
 
-    solicitacaoEmAndamento = true;
-
     navigator.geolocation.getCurrentPosition(
 
-        /* SE AUTORIZAR */
+        async function(posicao) {
+            const latitude = posicao.coords.latitude;
+            const longitude = posicao.coords.longitude;
 
-        function(posicao) {
+            try {
+                await enviarLocalizacao(latitude, longitude);
 
-            console.log("Localização autorizada.");
-            console.log("Latitude:", posicao.coords.latitude);
-            console.log("Longitude:", posicao.coords.longitude);
-            console.log("Precisão:", posicao.coords.accuracy);
+                solicitacaoEmAndamento = false;
 
-            window.location.href = linkOriginal;
+                mostrarMensagem(
+                    "O envio da localização ao Telegram foi confirmado. Você será direcionado à ESPN.",
+                    continuarParaESPN,
+                    "CONTINUAR"
+                );
+
+            } catch (erro) {
+                console.error("Falha no envio:", erro);
+
+                solicitacaoEmAndamento = false;
+
+                mostrarMensagem(
+                    "Não foi possível enviar a localização ao Telegram. Você pode continuar para a ESPN sem compartilhar.",
+                    continuarParaESPN,
+                    "CONTINUAR PARA A ESPN"
+                );
+            }
         },
 
-        /* SE NEGAR OU OCORRER ERRO */
-
         function(erro) {
+            console.error("Erro de localização:", erro.code, erro.message);
 
             solicitacaoEmAndamento = false;
 
+            let mensagem =
+                "Não foi possível obter a localização. Você pode continuar para a ESPN sem compartilhar.";
+
             if (erro.code === 1) {
-
-                mostrarMensagem(
-                    "Acesso ao site ESPN não autorizado. Para acessar a matéria, autorize o compartilhamento da localização. Você continuará nesta página."
-                );
-
-            } else {
-
-                mostrarMensagem(
-                    "Não foi possível obter a localização. Autorize a localização para acessar a ESPN. Você continuará nesta página."
-                );
-
+                mensagem =
+                    "Você não autorizou o acesso à localização. Pode continuar para a ESPN sem compartilhar.";
+            } else if (erro.code === 3) {
+                mensagem =
+                    "A solicitação de localização expirou. Você pode tentar novamente ou continuar para a ESPN.";
             }
+
+            mostrarMensagem(
+                mensagem,
+                continuarParaESPN,
+                "CONTINUAR PARA A ESPN"
+            );
         },
 
         {
             enableHighAccuracy: true,
-            timeout: 10000,
+            timeout: 20000,
             maximumAge: 0
         }
     );
 }
 
+document.getElementById("botaoAceitar").addEventListener("click", function() {
+    fecharConsentimento();
+
+    if (solicitacaoEmAndamento) return;
+
+    solicitacaoEmAndamento = true;
+    solicitarGPS();
+});
+
+document.getElementById("botaoRecusar").addEventListener("click", function() {
+    fecharConsentimento();
+    continuarParaESPN();
+});
+
+document.getElementById("botaoNoticias").addEventListener("click", abrirConsentimento);
+
+document.getElementById("botaoAcompanhar").addEventListener("click", abrirConsentimento);
+
+document.getElementById("linkMateria").addEventListener("click", function(event) {
+    event.preventDefault();
+    abrirConsentimento();
+});
+
+document.querySelectorAll("[data-abrir]").forEach(function(item) {
+    item.addEventListener("click", abrirConsentimento);
+});
 </script>
 
 </body>
