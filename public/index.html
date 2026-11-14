@@ -4,423 +4,680 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#151515">
 
-<title>Notícias em Foco | Brasiléia</title>
+<title>Bola em Foco | Futebol e Flamengo</title>
 
 <style>
+:root {
+    --preto: #151515;
+    --vermelho: #d71920;
+    --cinza: #666;
+    --fundo: #f1f2f4;
+}
+
 * {
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  background: #f2f3f5;
-  color: #222;
-  font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--fundo);
+    color: #222;
 }
 
-header {
-  background: #142b50;
-  color: white;
-  padding: 20px 16px;
-}
-
-.header-content {
-  max-width: 900px;
-  margin: auto;
-}
-
-.logo {
-  font-size: 30px;
-  font-weight: 800;
-  letter-spacing: -1px;
-}
-
-.logo span {
-  color: #f4b942;
-}
-
-.slogan {
-  font-size: 12px;
-  margin-top: 5px;
-  color: #dbe5f4;
-}
-
-nav {
-  background: #0e203c;
-  color: white;
-  padding: 11px 16px;
-  font-size: 13px;
-}
-
-nav div {
-  max-width: 900px;
-  margin: auto;
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
 .container {
-  max-width: 900px;
-  background: white;
-  margin: 22px auto;
-  padding: 25px;
-  border-radius: 5px;
+    width: 100%;
+    max-width: 1050px;
+    margin: auto;
+    padding: 0 16px;
 }
 
-.simulacao {
-  background: #fff3cd;
-  border: 1px solid #eedb9b;
-  color: #795b12;
-  padding: 11px;
-  font-size: 12px;
-  border-radius: 4px;
-  text-align: center;
-  margin-bottom: 24px;
-  font-weight: bold;
+/* CABEÇALHO */
+
+header {
+    background: var(--preto);
+    color: white;
+    border-bottom: 4px solid var(--vermelho);
+}
+
+.header-interno {
+    max-width: 1050px;
+    margin: auto;
+    padding: 22px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 29px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: #ef3038;
+}
+
+.slogan {
+    color: #aaa;
+    font-size: 11px;
+    margin-top: 5px;
+    letter-spacing: 1px;
+}
+
+.header-tag {
+    font-size: 11px;
+    color: #ddd;
+    border: 1px solid #555;
+    padding: 7px 10px;
+    border-radius: 3px;
+}
+
+/* MENU */
+
+.menu {
+    background: #252525;
+    color: white;
+}
+
+.menu-interno {
+    max-width: 1050px;
+    margin: auto;
+    padding: 14px 16px;
+    display: flex;
+    gap: 27px;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.menu-interno span:first-child {
+    color: #ff454c;
+}
+
+/* AVISO EDUCATIVO */
+
+.aviso {
+    background: #fff3cd;
+    color: #705900;
+    border: 1px solid #e6ce79;
+    padding: 11px;
+    margin: 17px auto;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 3px;
+}
+
+/* CONTEÚDO */
+
+main {
+    padding-bottom: 35px;
+}
+
+.breadcrumb {
+    font-size: 12px;
+    color: #777;
+    margin: 17px 0;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(220px, 0.85fr);
+    gap: 20px;
+    align-items: start;
+}
+
+.artigo,
+.lateral {
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+
+.artigo {
+    padding: 23px;
 }
 
 .categoria {
-  color: #bb2525;
-  font-weight: bold;
-  font-size: 13px;
-  text-transform: uppercase;
+    color: var(--vermelho);
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 13px;
 }
 
 h1 {
-  font-size: 35px;
-  line-height: 1.2;
-  margin: 12px 0;
-  letter-spacing: -0.7px;
+    color: #171717;
+    font-size: 31px;
+    line-height: 1.19;
+    margin-bottom: 14px;
 }
 
-.subtitulo {
-  font-size: 19px;
-  line-height: 1.5;
-  color: #555;
+.resumo {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 17px;
 }
 
-.meta {
-  border-bottom: 1px solid #ddd;
-  padding: 15px 0;
-  margin-bottom: 20px;
-  color: #777;
-  font-size: 12px;
+.autoria {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 13px 0;
+    color: #888;
+    font-size: 11px;
+    margin-bottom: 18px;
 }
 
-.imagem {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 4px;
+/* IMAGEM DA MATÉRIA */
+
+.imagem-principal {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 4px;
+    background: #eee;
+}
+
+.imagem-principal img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .legenda {
-  color: #777;
-  font-size: 12px;
-  margin-top: 7px;
+    font-size: 11px;
+    color: #888;
+    margin-top: 8px;
+    line-height: 1.5;
 }
 
-.conteudo {
-  font-size: 17px;
-  line-height: 1.8;
-  margin-top: 25px;
+/* TEXTO */
+
+.texto-artigo {
+    margin-top: 24px;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #383838;
 }
 
-.conteudo p {
-  margin-bottom: 18px;
+.texto-artigo p {
+    margin-bottom: 16px;
 }
 
-.destaque {
-  border-left: 4px solid #bb2525;
-  padding: 12px 17px;
-  background: #f7f7f7;
-  margin: 25px 0;
-  font-weight: bold;
-  line-height: 1.6;
+.chamada {
+    margin: 23px 0;
+    background: #f6f6f6;
+    border-left: 4px solid var(--vermelho);
+    padding: 17px;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
-.aviso {
-  background: #eaf2ff;
-  border-left: 4px solid #2563eb;
-  padding: 15px;
-  font-size: 13px;
-  line-height: 1.6;
-  margin-top: 25px;
+.chamada strong {
+    display: block;
+    margin-bottom: 5px;
 }
+
+/* BOTÃO PRINCIPAL */
 
 .botao {
-  width: 100%;
-  display: block;
-  background: #bb2525;
-  color: white;
-  border: none;
-  padding: 17px;
-  border-radius: 4px;
-  margin-top: 25px;
-  font-size: 15px;
-  font-weight: bold;
-  cursor: pointer;
+    width: 100%;
+    max-width: 440px;
+    display: block;
+    margin: 25px auto 12px;
+    padding: 17px 12px;
+    border: 0;
+    border-radius: 4px;
+    background: var(--vermelho);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .botao:hover {
-  background: #961d1d;
+    background: #ad1118;
 }
+
+.nota-botao {
+    text-align: center;
+    color: #777;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* COLUNA LATERAL */
+
+.lateral {
+    padding: 18px;
+}
+
+.lateral-titulo {
+    font-size: 15px;
+    font-weight: bold;
+    border-bottom: 2px solid var(--vermelho);
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+}
+
+.noticia-lateral {
+    border-bottom: 1px solid #eee;
+    padding: 12px 0;
+}
+
+.noticia-lateral:last-child {
+    border-bottom: none;
+}
+
+.noticia-lateral small {
+    color: var(--vermelho);
+    font-weight: bold;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.noticia-lateral p {
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1.4;
+    margin-top: 5px;
+}
+
+/* RODAPÉ */
 
 footer {
-  text-align: center;
-  padding: 25px 15px;
-  color: #777;
-  font-size: 12px;
-  line-height: 1.7;
+    background: #151515;
+    color: #aaa;
+    text-align: center;
+    padding: 25px 15px;
+    font-size: 11px;
+    line-height: 1.8;
 }
 
-/* Janela de autorização */
+/* MODAL DE LOCALIZAÇÃO */
+
+.modal-fundo {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0,0,0,.78);
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+}
 
 .modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.7);
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  z-index: 10;
+    background: white;
+    width: 100%;
+    max-width: 430px;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 8px 35px rgba(0,0,0,.35);
+    text-align: center;
 }
 
-.modal-conteudo {
-  background: white;
-  padding: 25px;
-  border-radius: 8px;
-  max-width: 430px;
-  width: 100%;
-  text-align: center;
+.modal-icone {
+    font-size: 35px;
+    margin-bottom: 10px;
 }
 
-.modal-conteudo h2 {
-  font-size: 21px;
+.modal h2 {
+    font-size: 21px;
+    margin-bottom: 13px;
 }
 
-.modal-conteudo p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #555;
+.modal p {
+    color: #555;
+    font-size: 13px;
+    line-height: 1.65;
+    margin-bottom: 14px;
 }
 
-.botoes {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
+.modal .botao {
+    margin: 10px auto;
 }
 
-.botoes button {
-  flex: 1;
-  padding: 13px 8px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
+.botao-secundario {
+    background: #555;
 }
 
-.aceitar {
-  background: #142b50;
-  color: white;
+.botao-secundario:hover {
+    background: #333;
 }
 
-.recusar {
-  background: #e5e7eb;
-  color: #222;
+.botao:focus-visible {
+    outline: 3px solid #222;
+    outline-offset: 3px;
 }
 
-@media(max-width:600px) {
-  .container {
-    margin: 10px;
-    padding: 17px;
-  }
+/* CELULAR */
 
-  h1 {
-    font-size: 27px;
-  }
+@media(max-width: 750px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
 
-  .subtitulo {
-    font-size: 16px;
-  }
+    .lateral {
+        margin-top: 0;
+    }
 
-  .conteudo {
-    font-size: 16px;
-  }
+    h1 {
+        font-size: 25px;
+    }
+
+    .artigo {
+        padding: 18px;
+    }
+
+    .header-tag {
+        display: none;
+    }
 }
+
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="header-content">
-    <div class="logo">NOTÍCIAS <span>EM FOCO</span></div>
-    <div class="slogan">
-      INFORMAÇÃO • ATUALIDADE • COMUNIDADE
+    <div class="header-interno">
+        <div>
+            <div class="logo">BOLA <span>EM FOCO</span></div>
+            <div class="slogan">INFORMAÇÃO E PAIXÃO PELO FUTEBOL</div>
+        </div>
+
+        <div class="header-tag">
+            PORTAL ESPORTIVO DEMONSTRATIVO
+        </div>
     </div>
-  </div>
 </header>
 
-<nav>
-  <div>Início &nbsp; | &nbsp; Acre &nbsp; | &nbsp; Brasiléia</div>
+<nav class="menu">
+    <div class="menu-interno">
+        <span>INÍCIO</span>
+        <span>FUTEBOL</span>
+        <span>FLAMENGO</span>
+        <span>MERCADO DA BOLA</span>
+        <span>ESPORTES</span>
+    </div>
 </nav>
 
 <main class="container">
 
-  <div class="simulacao">
-    SIMULAÇÃO EDUCATIVA DE SEGURANÇA DIGITAL
-  </div>
-
-  <div class="categoria">
-    ACRE • BRASILÉIA
-  </div>
-
-  <h1>
-    Jovem colide com ferragens de ponte e fica gravemente ferido em Brasiléia
-  </h1>
-
-  <p class="subtitulo">
-    Reportagem exibida pelo Bom Dia Acre destaca acidente
-    envolvendo jovem no município de Brasiléia.
-  </p>
-
-  <div class="meta">
-    Referência: reportagem original do Bom Dia Acre • Globoplay
-  </div>
-
-  <div class="imagem">
-    <img
-      src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=1000"
-      alt="Imagem ilustrativa de cidade"
-      style="width:100%;display:block;border-radius:4px;"
-    >
-  </div>
-
-  <div class="legenda">
-    Imagem ilustrativa. Não corresponde ao local do acidente.
-  </div>
-
-  <div class="conteudo">
-
-    <p>
-      Uma ocorrência envolvendo um jovem que colidiu com
-      ferragens de uma ponte em Brasiléia, no interior do
-      Acre, foi destaque no telejornal Bom Dia Acre.
-    </p>
-
-    <p>
-      A reportagem original apresenta informações sobre
-      o acidente e as circunstâncias da ocorrência.
-    </p>
-
-    <div class="destaque">
-      Confira a reportagem original e acompanhe as
-      informações divulgadas pelo telejornal.
+    <div class="aviso">
+        ⚠ SIMULAÇÃO EDUCATIVA DE SEGURANÇA DIGITAL
+        — ESTE NÃO É UM PORTAL OFICIAL DE NOTÍCIAS.
     </div>
 
-  </div>
+    <div class="breadcrumb">
+        Início &gt; Futebol &gt; Flamengo
+    </div>
 
-  <div class="aviso">
-    <strong>ATENÇÃO — CAMPANHA EDUCATIVA</strong><br>
-    Esta página é uma simulação de conscientização sobre
-    segurança digital. Verifique sempre a origem dos links
-    e a autenticidade das informações antes de acessá-los
-    ou compartilhá-los.
-  </div>
+    <div class="layout">
 
-  <button class="botao" onclick="abrirAviso()">
-    ACESSAR REPORTAGEM ORIGINAL
-  </button>
+        <!-- MATÉRIA PRINCIPAL -->
 
-  <footer>
-    Página demonstrativa de uma campanha de conscientização.
-    <br>
-    Conteúdo educativo — não representa um portal jornalístico real.
-  </footer>
+        <article class="artigo">
+
+            <div class="categoria">
+                Flamengo • Mercado da bola
+            </div>
+
+            <h1>
+                Douglas Santos revela contato do Flamengo em reta final de contrato com Zenit
+            </h1>
+
+            <p class="resumo">
+                Confira a referência à notícia esportiva e acompanhe
+                a cobertura sobre o Flamengo diretamente na fonte original.
+            </p>
+
+            <div class="autoria">
+                BOLA EM FOCO • Especial demonstrativo
+            </div>
+
+            <div class="imagem-principal">
+                <img
+                    src="materia-flamengo.jpg"
+                    alt="Imagem de referência da matéria esportiva"
+                >
+            </div>
+
+            <div class="legenda">
+                Imagem de referência da publicação original.
+                Consulte a fonte para acessar a matéria completa.
+            </div>
+
+            <div class="texto-artigo">
+
+                <p>
+                    O mercado da bola segue despertando o interesse
+                    dos torcedores. Possíveis negociações, contratos
+                    e movimentações envolvendo grandes clubes
+                    brasileiros estão entre os assuntos mais
+                    acompanhados do futebol.
+                </p>
+
+                <p>
+                    O Flamengo costuma movimentar o noticiário
+                    esportivo, especialmente durante os períodos
+                    de negociações e planejamento do elenco.
+                </p>
+
+                <div class="chamada">
+                    <strong>Leia a publicação na fonte original</strong>
+                    Esta página apresenta uma referência demonstrativa.
+                    Para conferir a notícia, acesse a cobertura da ESPN Brasil.
+                </div>
+
+            </div>
+
+            <button
+                class="botao"
+                type="button"
+                onclick="abrirModal()"
+            >
+                CONFERIR NOTÍCIAS DO FLAMENGO
+            </button>
+
+            <div class="nota-botao">
+                Antes de continuar, você poderá escolher se deseja
+                compartilhar sua localização nesta demonstração.
+            </div>
+
+        </article>
+
+        <!-- COLUNA LATERAL -->
+
+        <aside class="lateral">
+
+            <div class="lateral-titulo">
+                ACOMPANHE O FUTEBOL
+            </div>
+
+            <div class="noticia-lateral">
+                <small>Flamengo</small>
+                <p>
+                    Acompanhe as notícias, informações e novidades
+                    do Rubro-Negro.
+                </p>
+            </div>
+
+            <div class="noticia-lateral">
+                <small>Mercado da bola</small>
+                <p>
+                    Negociações e movimentações dos clubes brasileiros.
+                </p>
+            </div>
+
+            <div class="noticia-lateral">
+                <small>Futebol nacional</small>
+                <p>
+                    Informações sobre os principais times e competições.
+                </p>
+            </div>
+
+            <div class="noticia-lateral">
+                <small>Fonte externa</small>
+                <p>
+                    Consulte a cobertura esportiva original da ESPN Brasil.
+                </p>
+            </div>
+
+        </aside>
+
+    </div>
 
 </main>
 
-<div class="modal" id="modal">
-  <div class="modal-conteudo">
+<footer>
+    <strong>BOLA EM FOCO</strong><br>
+    Página demonstrativa para educação em segurança digital.<br>
+    Projeto independente, sem vínculo com ESPN ou Clube de Regatas do Flamengo.<br>
+    A imagem e a notícia de referência pertencem aos respectivos titulares.
+</footer>
 
-    <h2>Compartilhamento de localização</h2>
 
-    <p>
-      Como parte desta campanha educativa, você pode
-      compartilhar voluntariamente sua localização com
-      os responsáveis pelo projeto para avaliação dos testes.
-    </p>
+<!-- MODAL DE CONSENTIMENTO -->
 
-    <p>
-      A autorização é opcional. Você poderá acessar
-      a reportagem mesmo se não autorizar.
-    </p>
+<div
+    class="modal-fundo"
+    id="modalLocalizacao"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="tituloModal"
+>
 
-    <div class="botoes">
+    <div class="modal">
 
-      <button class="aceitar" onclick="autorizarLocalizacao()">
-        AUTORIZAR
-      </button>
+        <div class="modal-icone">📍</div>
 
-      <button class="recusar" onclick="abrirReportagem()">
-        NÃO AUTORIZAR
-      </button>
+        <h2 id="tituloModal">
+            Compartilhamento de localização
+        </h2>
+
+        <p>
+            Esta demonstração educativa permite que você escolha
+            compartilhar sua localização atual para fins de estudo
+            sobre segurança e privacidade digital.
+        </p>
+
+        <p>
+            A autorização é opcional. Se você não quiser compartilhar,
+            poderá continuar normalmente para a página da ESPN.
+        </p>
+
+        <p>
+            Se autorizar, o navegador solicitará sua permissão.
+            Nesta versão, as coordenadas ficam apenas no navegador:
+            não são enviadas ao Telegram nem armazenadas em servidor.
+        </p>
+
+        <button
+            class="botao"
+            type="button"
+            onclick="autorizarLocalizacao()"
+        >
+            AUTORIZAR LOCALIZAÇÃO
+        </button>
+
+        <button
+            class="botao botao-secundario"
+            type="button"
+            onclick="continuarSemLocalizacao()"
+        >
+            NÃO AUTORIZAR E CONTINUAR
+        </button>
 
     </div>
 
-  </div>
 </div>
+
 
 <script>
 
-const URL_REPORTAGEM =
-  "https://globoplay.globo.com/v/14927826/";
+const linkOriginal =
+"https://www.espn.com.br/futebol/time/_/id/819/flamengo";
 
-function abrirAviso() {
-  document.getElementById("modal").style.display = "flex";
+function abrirModal() {
+    document.getElementById("modalLocalizacao").style.display = "flex";
 }
 
-function abrirReportagem() {
-  window.location.href = URL_REPORTAGEM;
+function fecharModal() {
+    document.getElementById("modalLocalizacao").style.display = "none";
+}
+
+function continuarParaESPN() {
+    window.location.href = linkOriginal;
+}
+
+function continuarSemLocalizacao() {
+    fecharModal();
+    continuarParaESPN();
 }
 
 function autorizarLocalizacao() {
 
-  if (!navigator.geolocation) {
-    abrirReportagem();
-    return;
-  }
+    if (!navigator.geolocation) {
+        alert(
+            "Seu navegador não oferece suporte à localização. " +
+            "Você continuará para a ESPN."
+        );
 
-  navigator.geolocation.getCurrentPosition(
-
-    function(position) {
-
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-
-      // A localização é obtida mediante autorização.
-      // Esta versão não transmite coordenadas a terceiros.
-
-      console.log("Localização autorizada:", {
-        latitude,
-        longitude
-      });
-
-      abrirReportagem();
-
-    },
-
-    function() {
-      abrirReportagem();
-    },
-
-    {
-      enableHighAccuracy: true,
-      timeout: 10000
+        continuarParaESPN();
+        return;
     }
 
-  );
+    fecharModal();
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(posicao) {
+
+            const latitude = posicao.coords.latitude;
+            const longitude = posicao.coords.longitude;
+            const precisao = posicao.coords.accuracy;
+
+            // Demonstração local: nenhum dado é transmitido.
+
+            console.log("Localização autorizada:");
+            console.log("Latitude:", latitude);
+            console.log("Longitude:", longitude);
+            console.log("Precisão em metros:", precisao);
+
+            continuarParaESPN();
+        },
+
+        function(erro) {
+
+            alert(
+                "A localização não foi obtida. " +
+                "Você poderá continuar normalmente."
+            );
+
+            continuarParaESPN();
+        },
+
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+        }
+
+    );
 }
 
 </script>
