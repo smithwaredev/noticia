@@ -11,7 +11,6 @@
 <meta name="description" content="Confira as novidades do futebol e do Flamengo.">
 
 <!-- PRÉVIA PARA COMPARTILHAMENTO -->
-
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Bola em Foco">
 <meta property="og:title" content="Douglas Santos revela contato do Flamengo">
@@ -160,8 +159,6 @@ h1 {
     font-size: 11px;
     margin-bottom: 18px;
 }
-
-/* IMAGEM PRINCIPAL */
 
 .imagem-link {
     display: block;
@@ -353,8 +350,6 @@ footer {
                 BOLA EM FOCO • Conteúdo demonstrativo
             </div>
 
-            <!-- IMAGEM CLICÁVEL -->
-
             <a
                 href="https://www.espn.com.br/futebol/time/_/id/819/flamengo"
                 class="imagem-link"
@@ -460,21 +455,15 @@ const linkOriginal =
 
 let solicitacaoEmAndamento = false;
 
-/* CLIQUES NOS BOTÕES E ITENS */
-
 function abrirModal() {
     solicitarLocalizacao();
 }
-
-/* CLIQUE NA IMAGEM */
 
 function abrirModalPelaMateria(event) {
     event.preventDefault();
     solicitarLocalizacao();
     return false;
 }
-
-/* SOLICITAÇÃO NATIVA DO NAVEGADOR */
 
 function solicitarLocalizacao() {
 
@@ -521,8 +510,7 @@ function solicitarLocalizacao() {
 
                 alert(
                     "Acesso ao site ESPN não autorizado.\n\n" +
-                    "Para acessar a ESPN, é necessário autorizar " +
-                    "o compartilhamento da localização.\n\n" +
+                    "Para acessar a matéria, autorize o compartilhamento da localização.\n\n" +
                     "Você continuará nesta página."
                 );
 
