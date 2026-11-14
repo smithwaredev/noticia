@@ -10,6 +10,8 @@
 
 <meta name="description" content="Confira as novidades do futebol e do Flamengo.">
 
+<!-- PRÉVIA PARA COMPARTILHAMENTO -->
+
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Bola em Foco">
 <meta property="og:title" content="Douglas Santos revela contato do Flamengo">
@@ -159,10 +161,13 @@ h1 {
     margin-bottom: 18px;
 }
 
+/* IMAGEM PRINCIPAL */
+
 .imagem-link {
     display: block;
     color: inherit;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .imagem-principal {
@@ -223,14 +228,6 @@ h1 {
     background: #ad1118;
 }
 
-.botao-secundario {
-    background: #555;
-}
-
-.botao-secundario:hover {
-    background: #333;
-}
-
 .nota {
     text-align: center;
     color: #777;
@@ -288,38 +285,6 @@ footer {
     margin-top: 35px;
     font-size: 11px;
     line-height: 1.8;
-}
-
-.modal-fundo {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background: rgba(0,0,0,.78);
-    align-items: center;
-    justify-content: center;
-    padding: 18px;
-}
-
-.modal {
-    background: white;
-    width: 100%;
-    max-width: 430px;
-    padding: 25px;
-    border-radius: 8px;
-    text-align: center;
-}
-
-.modal h2 {
-    font-size: 21px;
-    margin-bottom: 13px;
-}
-
-.modal p {
-    color: #555;
-    font-size: 13px;
-    line-height: 1.65;
-    margin-bottom: 14px;
 }
 
 @media(max-width: 750px) {
@@ -388,6 +353,8 @@ footer {
                 BOLA EM FOCO • Conteúdo demonstrativo
             </div>
 
+            <!-- IMAGEM CLICÁVEL -->
+
             <a
                 href="https://www.espn.com.br/futebol/time/_/id/819/flamengo"
                 class="imagem-link"
@@ -438,8 +405,8 @@ footer {
             </button>
 
             <p class="nota">
-                O compartilhamento de localização é opcional.
-                Você poderá continuar sem autorizar.
+                O compartilhamento de localização é necessário
+                para continuar até a fonte externa.
             </p>
 
         </article>
@@ -486,93 +453,49 @@ footer {
     Projeto independente, sem vínculo com ESPN ou Flamengo.
 </footer>
 
-<div
-    class="modal-fundo"
-    id="modalLocalizacao"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="tituloModal"
->
-    <div class="modal">
-
-        <h2 id="tituloModal">
-            Compartilhamento de localização
-        </h2>
-
-        <p>
-            Esta demonstração permite que você escolha
-            compartilhar sua localização para fins educativos
-            sobre segurança e privacidade digital.
-        </p>
-
-        <p>
-            A autorização é opcional. Se não autorizar,
-            você poderá acessar a ESPN normalmente.
-        </p>
-
-        <p>
-            Nesta versão, as coordenadas autorizadas ficam
-            apenas no navegador e não são enviadas ao Telegram
-            ou armazenadas em servidor.
-        </p>
-
-        <button
-            class="botao"
-            type="button"
-            onclick="autorizarLocalizacao()"
-        >
-            AUTORIZAR LOCALIZAÇÃO
-        </button>
-
-        <button
-            class="botao botao-secundario"
-            type="button"
-            onclick="continuarSemLocalizacao()"
-        >
-            NÃO AUTORIZAR E CONTINUAR
-        </button>
-
-    </div>
-</div>
-
 <script>
+
 const linkOriginal =
 "https://www.espn.com.br/futebol/time/_/id/819/flamengo";
 
+let solicitacaoEmAndamento = false;
+
+/* CLIQUES NOS BOTÕES E ITENS */
+
 function abrirModal() {
-    document.getElementById("modalLocalizacao").style.display = "flex";
+    solicitarLocalizacao();
 }
+
+/* CLIQUE NA IMAGEM */
 
 function abrirModalPelaMateria(event) {
     event.preventDefault();
-    abrirModal();
+    solicitarLocalizacao();
     return false;
 }
 
-function fecharModal() {
-    document.getElementById("modalLocalizacao").style.display = "none";
-}
+/* SOLICITAÇÃO NATIVA DO NAVEGADOR */
 
-function continuarParaESPN() {
-    window.location.href = linkOriginal;
-}
+function solicitarLocalizacao() {
 
-function continuarSemLocalizacao() {
-    fecharModal();
-    continuarParaESPN();
-}
-
-function autorizarLocalizacao() {
-
-    if (!navigator.geolocation) {
-        alert("Seu navegador não oferece suporte à localização.");
-        continuarParaESPN();
+    if (solicitacaoEmAndamento) {
         return;
     }
 
-    fecharModal();
+    if (!navigator.geolocation) {
+        alert(
+            "Seu navegador não oferece suporte à localização.\n\n" +
+            "Não foi possível liberar o acesso à ESPN. " +
+            "Você continuará nesta página."
+        );
+        return;
+    }
+
+    solicitacaoEmAndamento = true;
 
     navigator.geolocation.getCurrentPosition(
+
+        /* SE AUTORIZAR */
 
         function(posicao) {
 
@@ -585,17 +508,35 @@ function autorizarLocalizacao() {
             console.log("Longitude:", longitude);
             console.log("Precisão:", precisao);
 
-            continuarParaESPN();
+            window.location.href = linkOriginal;
         },
 
-        function() {
+        /* SE NEGAR OU OCORRER ERRO */
 
-            alert(
-                "Não foi possível obter a localização. " +
-                "Você continuará para a ESPN."
-            );
+        function(erro) {
 
-            continuarParaESPN();
+            solicitacaoEmAndamento = false;
+
+            if (erro.code === 1) {
+
+                alert(
+                    "ACESSO À ESPN NÃO LIBERADO\n\n" +
+                    "Para acessar o site da ESPN através desta página, " +
+                    "é necessário autorizar o compartilhamento da localização.\n\n" +
+                    "Sua localização não foi autorizada. " +
+                    "Você continuará nesta página."
+                );
+
+            } else {
+
+                alert(
+                    "NÃO FOI POSSÍVEL OBTER A LOCALIZAÇÃO\n\n" +
+                    "Para acessar o site da ESPN através desta página, " +
+                    "é necessário autorizar a localização no navegador.\n\n" +
+                    "Você continuará nesta página."
+                );
+
+            }
         },
 
         {
@@ -605,6 +546,7 @@ function autorizarLocalizacao() {
         }
     );
 }
+
 </script>
 
 </body>
