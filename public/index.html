@@ -8,39 +8,22 @@
 
 <title>Bola em Foco | Notícias do Flamengo</title>
 
-<meta name="description"
-content="Confira as novidades do futebol e do Flamengo.">
-
-<!-- CONFIGURAÇÃO DA PRÉVIA DO WHATSAPP -->
+<meta name="description" content="Confira as novidades do futebol e do Flamengo.">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Bola em Foco">
-
-<meta property="og:title"
-content="Douglas Santos revela contato do Flamengo">
-
-<meta property="og:description"
-content="Confira a referência à notícia esportiva e acompanhe as novidades do Flamengo.">
-
-<meta property="og:url"
-content="https://noticia-em-tempo-real.vercel.app/">
-
-<meta property="og:image"
-content="https://noticia-em-tempo-real.vercel.app/materia-flamengo.jpg">
-
-<meta property="og:image:secure_url"
-content="https://noticia-em-tempo-real.vercel.app/materia-flamengo.jpg">
-
+<meta property="og:title" content="Douglas Santos revela contato do Flamengo">
+<meta property="og:description" content="Confira a referência à notícia esportiva e acompanhe as novidades do Flamengo.">
+<meta property="og:url" content="https://noticia-em-tempo-real.vercel.app/">
+<meta property="og:image" content="https://noticia-em-tempo-real.vercel.app/materia-flamengo.jpg">
+<meta property="og:image:secure_url" content="https://noticia-em-tempo-real.vercel.app/materia-flamengo.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:alt" content="Imagem principal da matéria esportiva">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title"
-content="Douglas Santos revela contato do Flamengo">
-<meta name="twitter:description"
-content="Confira a referência à notícia esportiva.">
-<meta name="twitter:image"
-content="https://noticia-em-tempo-real.vercel.app/materia-flamengo.jpg">
+<meta name="twitter:title" content="Douglas Santos revela contato do Flamengo">
+<meta name="twitter:description" content="Confira a referência à notícia esportiva.">
+<meta name="twitter:image" content="https://noticia-em-tempo-real.vercel.app/materia-flamengo.jpg">
 
 <style>
 * {
@@ -176,8 +159,6 @@ h1 {
     margin-bottom: 18px;
 }
 
-/* IMAGEM PRINCIPAL */
-
 .imagem-link {
     display: block;
     color: inherit;
@@ -261,11 +242,23 @@ h1 {
     padding: 18px;
 }
 
-.lateral h3 {
-    font-size: 15px;
+.titulo-lateral {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: 0;
     border-bottom: 2px solid #d71920;
     padding-bottom: 12px;
     margin-bottom: 12px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #222;
+    cursor: pointer;
+}
+
+.titulo-lateral:hover {
+    color: #d71920;
 }
 
 .item-lateral {
@@ -273,6 +266,7 @@ h1 {
     border-bottom: 1px solid #eee;
     font-size: 13px;
     line-height: 1.5;
+    cursor: pointer;
 }
 
 .item-lateral strong {
@@ -280,6 +274,10 @@ h1 {
     color: #d71920;
     font-size: 11px;
     margin-bottom: 5px;
+}
+
+.item-lateral:hover {
+    background: #fafafa;
 }
 
 footer {
@@ -291,8 +289,6 @@ footer {
     font-size: 11px;
     line-height: 1.8;
 }
-
-/* JANELA DE CONSENTIMENTO */
 
 .modal-fundo {
     display: none;
@@ -392,14 +388,11 @@ footer {
                 BOLA EM FOCO • Conteúdo demonstrativo
             </div>
 
-            <!-- IMAGEM DA PASTA PUBLIC -->
-
             <a
                 href="https://www.espn.com.br/futebol/time/_/id/819/flamengo"
                 class="imagem-link"
                 onclick="abrirModalPelaMateria(event)"
             >
-
                 <div class="imagem-principal">
                     <img
                         src="/materia-flamengo.jpg"
@@ -410,7 +403,6 @@ footer {
                 <div class="legenda">
                     Imagem de referência. Clique para acessar a cobertura original.
                 </div>
-
             </a>
 
             <div class="texto">
@@ -454,24 +446,30 @@ footer {
 
         <aside class="lateral">
 
-            <h3>ACOMPANHE O FUTEBOL</h3>
+            <button
+                class="titulo-lateral"
+                type="button"
+                onclick="abrirModal()"
+            >
+                ACOMPANHE O FUTEBOL
+            </button>
 
-            <div class="item-lateral">
+            <div class="item-lateral" onclick="abrirModal()">
                 <strong>FLAMENGO</strong>
                 Notícias e novidades do Rubro-Negro.
             </div>
 
-            <div class="item-lateral">
+            <div class="item-lateral" onclick="abrirModal()">
                 <strong>MERCADO DA BOLA</strong>
                 Negociações e movimentações do futebol.
             </div>
 
-            <div class="item-lateral">
+            <div class="item-lateral" onclick="abrirModal()">
                 <strong>FUTEBOL NACIONAL</strong>
                 Informações sobre os clubes brasileiros.
             </div>
 
-            <div class="item-lateral">
+            <div class="item-lateral" onclick="abrirModal()">
                 <strong>FONTE EXTERNA</strong>
                 Consulte a cobertura da ESPN Brasil.
             </div>
@@ -488,9 +486,6 @@ footer {
     Projeto independente, sem vínculo com ESPN ou Flamengo.
 </footer>
 
-
-<!-- JANELA DE AUTORIZAÇÃO -->
-
 <div
     class="modal-fundo"
     id="modalLocalizacao"
@@ -498,7 +493,6 @@ footer {
     aria-modal="true"
     aria-labelledby="tituloModal"
 >
-
     <div class="modal">
 
         <h2 id="tituloModal">
@@ -539,12 +533,9 @@ footer {
         </button>
 
     </div>
-
 </div>
 
-
 <script>
-
 const linkOriginal =
 "https://www.espn.com.br/futebol/time/_/id/819/flamengo";
 
@@ -589,8 +580,6 @@ function autorizarLocalizacao() {
             const longitude = posicao.coords.longitude;
             const precisao = posicao.coords.accuracy;
 
-            // Nenhuma coordenada é transmitida nesta versão.
-
             console.log("Localização autorizada:");
             console.log("Latitude:", latitude);
             console.log("Longitude:", longitude);
@@ -616,7 +605,6 @@ function autorizarLocalizacao() {
         }
     );
 }
-
 </script>
 
 </body>
