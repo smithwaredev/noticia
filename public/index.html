@@ -4,7 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Notícias em Foco - Brasiléia</title>
+
+<title>Notícias em Foco | Brasiléia</title>
 
 <style>
 * {
@@ -13,113 +14,172 @@
 
 body {
   margin: 0;
-  background: #f1f2f4;
+  background: #f2f3f5;
+  color: #222;
   font-family: Arial, sans-serif;
-  color: #252525;
 }
 
 header {
-  background: #172554;
+  background: #142b50;
   color: white;
-  padding: 20px;
+  padding: 20px 16px;
+}
+
+.header-content {
+  max-width: 900px;
+  margin: auto;
 }
 
 .logo {
-  font-size: 25px;
-  font-weight: bold;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -1px;
 }
 
-.sublogo {
+.logo span {
+  color: #f4b942;
+}
+
+.slogan {
   font-size: 12px;
   margin-top: 5px;
-  color: #dbeafe;
+  color: #dbe5f4;
+}
+
+nav {
+  background: #0e203c;
+  color: white;
+  padding: 11px 16px;
+  font-size: 13px;
+}
+
+nav div {
+  max-width: 900px;
+  margin: auto;
 }
 
 .container {
-  max-width: 760px;
+  max-width: 900px;
   background: white;
-  margin: 20px auto;
-  padding: 20px;
-  border-radius: 7px;
+  margin: 22px auto;
+  padding: 25px;
+  border-radius: 5px;
 }
 
 .simulacao {
   background: #fff3cd;
-  color: #856404;
-  padding: 10px;
+  border: 1px solid #eedb9b;
+  color: #795b12;
+  padding: 11px;
   font-size: 12px;
-  border-radius: 5px;
-  margin-bottom: 20px;
+  border-radius: 4px;
   text-align: center;
+  margin-bottom: 24px;
+  font-weight: bold;
 }
 
 .categoria {
-  color: #b91c1c;
-  font-size: 13px;
+  color: #bb2525;
   font-weight: bold;
+  font-size: 13px;
   text-transform: uppercase;
 }
 
 h1 {
-  font-size: 29px;
+  font-size: 35px;
   line-height: 1.2;
   margin: 12px 0;
+  letter-spacing: -0.7px;
 }
 
 .subtitulo {
-  color: #555;
-  font-size: 17px;
+  font-size: 19px;
   line-height: 1.5;
+  color: #555;
 }
 
-.data {
+.meta {
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+  margin-bottom: 20px;
   color: #777;
   font-size: 12px;
-  margin: 18px 0;
+}
+
+.imagem {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
+
+.legenda {
+  color: #777;
+  font-size: 12px;
+  margin-top: 7px;
 }
 
 .conteudo {
-  font-size: 16px;
-  line-height: 1.7;
-  margin-top: 20px;
-}
-
-.botao {
-  display: block;
-  width: 100%;
-  background: #172554;
-  color: white;
-  padding: 16px;
-  text-align: center;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
+  font-size: 17px;
+  line-height: 1.8;
   margin-top: 25px;
-  cursor: pointer;
-  font-size: 15px;
 }
 
-footer {
-  text-align: center;
-  color: #777;
-  font-size: 12px;
-  padding: 20px;
+.conteudo p {
+  margin-bottom: 18px;
+}
+
+.destaque {
+  border-left: 4px solid #bb2525;
+  padding: 12px 17px;
+  background: #f7f7f7;
+  margin: 25px 0;
+  font-weight: bold;
+  line-height: 1.6;
 }
 
 .aviso {
   background: #eaf2ff;
   border-left: 4px solid #2563eb;
-  padding: 12px;
+  padding: 15px;
   font-size: 13px;
-  line-height: 1.5;
-  margin-top: 18px;
+  line-height: 1.6;
+  margin-top: 25px;
 }
+
+.botao {
+  width: 100%;
+  display: block;
+  background: #bb2525;
+  color: white;
+  border: none;
+  padding: 17px;
+  border-radius: 4px;
+  margin-top: 25px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.botao:hover {
+  background: #961d1d;
+}
+
+footer {
+  text-align: center;
+  padding: 25px 15px;
+  color: #777;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* Janela de autorização */
 
 .modal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.65);
+  background: rgba(0,0,0,.7);
   align-items: center;
   justify-content: center;
   padding: 20px;
@@ -129,8 +189,8 @@ footer {
 .modal-conteudo {
   background: white;
   padding: 25px;
-  border-radius: 9px;
-  max-width: 420px;
+  border-radius: 8px;
+  max-width: 430px;
   width: 100%;
   text-align: center;
 }
@@ -142,6 +202,7 @@ footer {
 .modal-conteudo p {
   font-size: 14px;
   line-height: 1.6;
+  color: #555;
 }
 
 .botoes {
@@ -160,7 +221,7 @@ footer {
 }
 
 .aceitar {
-  background: #172554;
+  background: #142b50;
   color: white;
 }
 
@@ -172,11 +233,19 @@ footer {
 @media(max-width:600px) {
   .container {
     margin: 10px;
-    padding: 16px;
+    padding: 17px;
   }
 
   h1 {
-    font-size: 25px;
+    font-size: 27px;
+  }
+
+  .subtitulo {
+    font-size: 16px;
+  }
+
+  .conteudo {
+    font-size: 16px;
   }
 }
 </style>
@@ -185,11 +254,17 @@ footer {
 <body>
 
 <header>
-  <div class="logo">NOTÍCIAS EM FOCO</div>
-  <div class="sublogo">
-    INFORMAÇÃO • ATUALIDADE • COMUNIDADE
+  <div class="header-content">
+    <div class="logo">NOTÍCIAS <span>EM FOCO</span></div>
+    <div class="slogan">
+      INFORMAÇÃO • ATUALIDADE • COMUNIDADE
+    </div>
   </div>
 </header>
+
+<nav>
+  <div>Início &nbsp; | &nbsp; Acre &nbsp; | &nbsp; Brasiléia</div>
+</nav>
 
 <main class="container">
 
@@ -197,22 +272,37 @@ footer {
     SIMULAÇÃO EDUCATIVA DE SEGURANÇA DIGITAL
   </div>
 
-  <div class="categoria">ACRE • BRASILÉIA</div>
+  <div class="categoria">
+    ACRE • BRASILÉIA
+  </div>
 
   <h1>
     Jovem colide com ferragens de ponte e fica gravemente ferido em Brasiléia
   </h1>
 
   <p class="subtitulo">
-    Reportagem exibida pelo Bom Dia Acre aborda acidente
+    Reportagem exibida pelo Bom Dia Acre destaca acidente
     envolvendo jovem no município de Brasiléia.
   </p>
 
-  <div class="data">
-    Referência: reportagem do Bom Dia Acre • Globoplay
+  <div class="meta">
+    Referência: reportagem original do Bom Dia Acre • Globoplay
+  </div>
+
+  <div class="imagem">
+    <img
+      src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=1000"
+      alt="Imagem ilustrativa de cidade"
+      style="width:100%;display:block;border-radius:4px;"
+    >
+  </div>
+
+  <div class="legenda">
+    Imagem ilustrativa. Não corresponde ao local do acidente.
   </div>
 
   <div class="conteudo">
+
     <p>
       Uma ocorrência envolvendo um jovem que colidiu com
       ferragens de uma ponte em Brasiléia, no interior do
@@ -223,12 +313,20 @@ footer {
       A reportagem original apresenta informações sobre
       o acidente e as circunstâncias da ocorrência.
     </p>
+
+    <div class="destaque">
+      Confira a reportagem original e acompanhe as
+      informações divulgadas pelo telejornal.
+    </div>
+
   </div>
 
   <div class="aviso">
-    Esta página faz parte de uma simulação educativa.
-    Antes de acessar links recebidos pela internet,
-    verifique a origem e a autenticidade das informações.
+    <strong>ATENÇÃO — CAMPANHA EDUCATIVA</strong><br>
+    Esta página é uma simulação de conscientização sobre
+    segurança digital. Verifique sempre a origem dos links
+    e a autenticidade das informações antes de acessá-los
+    ou compartilhá-los.
   </div>
 
   <button class="botao" onclick="abrirAviso()">
@@ -237,13 +335,11 @@ footer {
 
   <footer>
     Página demonstrativa de uma campanha de conscientização.
-    <br><br>
+    <br>
     Conteúdo educativo — não representa um portal jornalístico real.
   </footer>
 
 </main>
-
-<!-- Janela de autorização -->
 
 <div class="modal" id="modal">
   <div class="modal-conteudo">
@@ -251,17 +347,18 @@ footer {
     <h2>Compartilhamento de localização</h2>
 
     <p>
-      Esta campanha educativa permite compartilhar
-      voluntariamente sua localização com os responsáveis
-      pelo projeto, para avaliação dos resultados.
+      Como parte desta campanha educativa, você pode
+      compartilhar voluntariamente sua localização com
+      os responsáveis pelo projeto para avaliação dos testes.
     </p>
 
     <p>
-      A autorização é opcional. Se preferir não compartilhar,
-      poderá acessar a reportagem normalmente.
+      A autorização é opcional. Você poderá acessar
+      a reportagem mesmo se não autorizar.
     </p>
 
     <div class="botoes">
+
       <button class="aceitar" onclick="autorizarLocalizacao()">
         AUTORIZAR
       </button>
@@ -269,12 +366,14 @@ footer {
       <button class="recusar" onclick="abrirReportagem()">
         NÃO AUTORIZAR
       </button>
+
     </div>
 
   </div>
 </div>
 
 <script>
+
 const URL_REPORTAGEM =
   "https://globoplay.globo.com/v/14927826/";
 
@@ -289,32 +388,30 @@ function abrirReportagem() {
 function autorizarLocalizacao() {
 
   if (!navigator.geolocation) {
-    alert("Geolocalização não disponível neste navegador.");
     abrirReportagem();
     return;
   }
 
   navigator.geolocation.getCurrentPosition(
+
     function(position) {
 
-      // A localização foi autorizada.
-      // Não transmitir coordenadas sem uma finalidade
-      // informada e um serviço de recebimento configurado.
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
 
-      alert(
-        "Autorização concedida. A localização foi obtida " +
-        "para a demonstração educativa."
-      );
+      // A localização é obtida mediante autorização.
+      // Esta versão não transmite coordenadas a terceiros.
+
+      console.log("Localização autorizada:", {
+        latitude,
+        longitude
+      });
 
       abrirReportagem();
+
     },
 
-    function(error) {
-      alert(
-        "Não foi possível obter a localização. " +
-        "Você continuará para a reportagem."
-      );
-
+    function() {
       abrirReportagem();
     },
 
@@ -322,8 +419,10 @@ function autorizarLocalizacao() {
       enableHighAccuracy: true,
       timeout: 10000
     }
+
   );
 }
+
 </script>
 
 </body>
