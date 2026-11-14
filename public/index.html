@@ -1,44 +1,330 @@
 
-<!-- Substitua o botão antigo por este -->
-<button class="botao" onclick="solicitarLocalizacao()">
-  ACESSAR REPORTAGEM ORIGINAL
-</button>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notícias em Foco - Brasiléia</title>
 
-<script>
-function solicitarLocalizacao() {
-  const autorizar = confirm(
-    "Campanha de conscientização digital:\n\n" +
-    "Deseja compartilhar sua localização com os responsáveis " +
-    "pela campanha para fins de avaliação de segurança?\n\n" +
-    "Sua autorização é opcional. Você poderá acessar a reportagem " +
-    "mesmo se não autorizar."
-  );
+<style>
+* {
+  box-sizing: border-box;
+}
 
-  if (autorizar && navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const dados = {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          precisao: position.coords.accuracy
-        };
+body {
+  margin: 0;
+  background: #f1f2f4;
+  font-family: Arial, sans-serif;
+  color: #252525;
+}
 
-        // Enviar os dados ao servidor da campanha,
-        // com o token do Telegram protegido no servidor.
-        console.log("Localização autorizada:", dados);
+header {
+  background: #172554;
+  color: white;
+  padding: 20px;
+}
 
-        window.location.href =
-          "https://globoplay.globo.com/v/14927826/";
-      },
-      () => {
-        window.location.href =
-          "https://globoplay.globo.com/v/14927826/";
-      },
-      { enableHighAccuracy: true, timeout: 10000 }
-    );
-  } else {
-    window.location.href =
-      "https://globoplay.globo.com/v/14927826/";
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.sublogo {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #dbeafe;
+}
+
+.container {
+  max-width: 760px;
+  background: white;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 7px;
+}
+
+.simulacao {
+  background: #fff3cd;
+  color: #856404;
+  padding: 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.categoria {
+  color: #b91c1c;
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 29px;
+  line-height: 1.2;
+  margin: 12px 0;
+}
+
+.subtitulo {
+  color: #555;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.data {
+  color: #777;
+  font-size: 12px;
+  margin: 18px 0;
+}
+
+.conteudo {
+  font-size: 16px;
+  line-height: 1.7;
+  margin-top: 20px;
+}
+
+.botao {
+  display: block;
+  width: 100%;
+  background: #172554;
+  color: white;
+  padding: 16px;
+  text-align: center;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  margin-top: 25px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+footer {
+  text-align: center;
+  color: #777;
+  font-size: 12px;
+  padding: 20px;
+}
+
+.aviso {
+  background: #eaf2ff;
+  border-left: 4px solid #2563eb;
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 18px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.65);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 10;
+}
+
+.modal-conteudo {
+  background: white;
+  padding: 25px;
+  border-radius: 9px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+}
+
+.modal-conteudo h2 {
+  font-size: 21px;
+}
+
+.modal-conteudo p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.botoes {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.botoes button {
+  flex: 1;
+  padding: 13px 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.aceitar {
+  background: #172554;
+  color: white;
+}
+
+.recusar {
+  background: #e5e7eb;
+  color: #222;
+}
+
+@media(max-width:600px) {
+  .container {
+    margin: 10px;
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 25px;
   }
 }
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">NOTÍCIAS EM FOCO</div>
+  <div class="sublogo">
+    INFORMAÇÃO • ATUALIDADE • COMUNIDADE
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="simulacao">
+    SIMULAÇÃO EDUCATIVA DE SEGURANÇA DIGITAL
+  </div>
+
+  <div class="categoria">ACRE • BRASILÉIA</div>
+
+  <h1>
+    Jovem colide com ferragens de ponte e fica gravemente ferido em Brasiléia
+  </h1>
+
+  <p class="subtitulo">
+    Reportagem exibida pelo Bom Dia Acre aborda acidente
+    envolvendo jovem no município de Brasiléia.
+  </p>
+
+  <div class="data">
+    Referência: reportagem do Bom Dia Acre • Globoplay
+  </div>
+
+  <div class="conteudo">
+    <p>
+      Uma ocorrência envolvendo um jovem que colidiu com
+      ferragens de uma ponte em Brasiléia, no interior do
+      Acre, foi destaque no telejornal Bom Dia Acre.
+    </p>
+
+    <p>
+      A reportagem original apresenta informações sobre
+      o acidente e as circunstâncias da ocorrência.
+    </p>
+  </div>
+
+  <div class="aviso">
+    Esta página faz parte de uma simulação educativa.
+    Antes de acessar links recebidos pela internet,
+    verifique a origem e a autenticidade das informações.
+  </div>
+
+  <button class="botao" onclick="abrirAviso()">
+    ACESSAR REPORTAGEM ORIGINAL
+  </button>
+
+  <footer>
+    Página demonstrativa de uma campanha de conscientização.
+    <br><br>
+    Conteúdo educativo — não representa um portal jornalístico real.
+  </footer>
+
+</main>
+
+<!-- Janela de autorização -->
+
+<div class="modal" id="modal">
+  <div class="modal-conteudo">
+
+    <h2>Compartilhamento de localização</h2>
+
+    <p>
+      Esta campanha educativa permite compartilhar
+      voluntariamente sua localização com os responsáveis
+      pelo projeto, para avaliação dos resultados.
+    </p>
+
+    <p>
+      A autorização é opcional. Se preferir não compartilhar,
+      poderá acessar a reportagem normalmente.
+    </p>
+
+    <div class="botoes">
+      <button class="aceitar" onclick="autorizarLocalizacao()">
+        AUTORIZAR
+      </button>
+
+      <button class="recusar" onclick="abrirReportagem()">
+        NÃO AUTORIZAR
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const URL_REPORTAGEM =
+  "https://globoplay.globo.com/v/14927826/";
+
+function abrirAviso() {
+  document.getElementById("modal").style.display = "flex";
+}
+
+function abrirReportagem() {
+  window.location.href = URL_REPORTAGEM;
+}
+
+function autorizarLocalizacao() {
+
+  if (!navigator.geolocation) {
+    alert("Geolocalização não disponível neste navegador.");
+    abrirReportagem();
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    function(position) {
+
+      // A localização foi autorizada.
+      // Não transmitir coordenadas sem uma finalidade
+      // informada e um serviço de recebimento configurado.
+
+      alert(
+        "Autorização concedida. A localização foi obtida " +
+        "para a demonstração educativa."
+      );
+
+      abrirReportagem();
+    },
+
+    function(error) {
+      alert(
+        "Não foi possível obter a localização. " +
+        "Você continuará para a reportagem."
+      );
+
+      abrirReportagem();
+    },
+
+    {
+      enableHighAccuracy: true,
+      timeout: 10000
+    }
+  );
+}
 </script>
+
+</body>
+</html>
