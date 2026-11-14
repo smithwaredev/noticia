@@ -1,191 +1,44 @@
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Notícia - Acidente em Brasiléia</title>
+<!-- Substitua o botão antigo por este -->
+<button class="botao" onclick="solicitarLocalizacao()">
+  ACESSAR REPORTAGEM ORIGINAL
+</button>
 
-<style>
-* {
-  box-sizing: border-box;
-}
+<script>
+function solicitarLocalizacao() {
+  const autorizar = confirm(
+    "Campanha de conscientização digital:\n\n" +
+    "Deseja compartilhar sua localização com os responsáveis " +
+    "pela campanha para fins de avaliação de segurança?\n\n" +
+    "Sua autorização é opcional. Você poderá acessar a reportagem " +
+    "mesmo se não autorizar."
+  );
 
-body {
-  margin: 0;
-  background: #f1f2f4;
-  font-family: Arial, sans-serif;
-  color: #252525;
-}
+  if (autorizar && navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const dados = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          precisao: position.coords.accuracy
+        };
 
-header {
-  background: #172554;
-  color: white;
-  padding: 20px;
-}
+        // Enviar os dados ao servidor da campanha,
+        // com o token do Telegram protegido no servidor.
+        console.log("Localização autorizada:", dados);
 
-.logo {
-  font-size: 25px;
-  font-weight: bold;
-}
-
-.sublogo {
-  font-size: 12px;
-  margin-top: 5px;
-  color: #dbeafe;
-}
-
-.container {
-  max-width: 760px;
-  background: white;
-  margin: 20px auto;
-  padding: 20px;
-  border-radius: 7px;
-}
-
-.simulacao {
-  background: #fff3cd;
-  color: #856404;
-  padding: 10px;
-  font-size: 12px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.categoria {
-  color: #b91c1c;
-  font-size: 13px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-h1 {
-  font-size: 29px;
-  line-height: 1.2;
-  margin: 12px 0;
-}
-
-.subtitulo {
-  color: #555;
-  font-size: 17px;
-  line-height: 1.5;
-}
-
-.data {
-  color: #777;
-  font-size: 12px;
-  margin: 18px 0;
-}
-
-.imagem {
-  width: 100%;
-  border-radius: 5px;
-  margin: 10px 0;
-}
-
-.legenda {
-  font-size: 12px;
-  color: #777;
-}
-
-.conteudo {
-  font-size: 16px;
-  line-height: 1.7;
-  margin-top: 20px;
-}
-
-.botao {
-  display: block;
-  background: #172554;
-  color: white;
-  padding: 16px;
-  text-align: center;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 5px;
-  margin-top: 25px;
-}
-
-footer {
-  text-align: center;
-  color: #777;
-  font-size: 12px;
-  padding: 20px;
-}
-
-@media(max-width: 600px) {
-  .container {
-    margin: 10px;
-    padding: 16px;
-  }
-
-  h1 {
-    font-size: 25px;
+        window.location.href =
+          "https://globoplay.globo.com/v/14927826/";
+      },
+      () => {
+        window.location.href =
+          "https://globoplay.globo.com/v/14927826/";
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  } else {
+    window.location.href =
+      "https://globoplay.globo.com/v/14927826/";
   }
 }
-</style>
-</head>
-
-<body>
-
-<header>
-  <div class="logo">NOTÍCIAS EM FOCO</div>
-  <div class="sublogo">
-    INFORMAÇÃO • ATUALIDADE • COMUNIDADE
-  </div>
-</header>
-
-<main class="container">
-
-  <div class="simulacao">
-    SIMULAÇÃO EDUCATIVA DE SEGURANÇA DIGITAL
-  </div>
-
-  <div class="categoria">ACRE • BRASILÉIA</div>
-
-  <h1>
-    Jovem colide com ferragens de ponte e fica gravemente ferido em Brasiléia
-  </h1>
-
-  <p class="subtitulo">
-    Reportagem exibida pelo Bom Dia Acre aborda acidente
-    envolvendo jovem no município de Brasiléia.
-  </p>
-
-  <div class="data">
-    Reportagem original: Bom Dia Acre • Globoplay
-  </div>
-
-  <div class="conteudo">
-    <p>
-      Uma ocorrência envolvendo um jovem que colidiu com
-      ferragens de uma ponte em Brasiléia, no interior do
-      Acre, foi destaque no telejornal Bom Dia Acre.
-    </p>
-
-    <p>
-      A reportagem original apresenta as informações
-      sobre o acidente e as circunstâncias da ocorrência.
-    </p>
-  </div>
-
-  <a
-    class="botao"
-    href="https://globoplay.globo.com/v/14927826/"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    ACESSAR REPORTAGEM ORIGINAL
-  </a>
-
-  <footer>
-    Página demonstrativa de uma campanha de conscientização.
-    <br><br>
-    Conteúdo educativo — não representa um portal jornalístico real.
-  </footer>
-
-</main>
-
-</body>
-</html>
+</script>
