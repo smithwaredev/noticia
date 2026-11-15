@@ -4,223 +4,547 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BOLA EM FOCO | Notícias do Flamengo</title>
+<meta name="theme-color" content="#151515">
+
+<title>Bola em Foco | Notícias do Flamengo</title>
+
+<meta name="description" content="Confira as novidades do futebol e do Flamengo.">
+
+<!-- PRÉVIA PARA COMPARTILHAMENTO -->
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bola em Foco">
+<meta property="og:title" content="Douglas Santos revela contato do Flamengo">
+<meta property="og:description" content="Confira a referência à notícia esportiva e acompanhe as novidades do Flamengo.">
+<meta property="og:url" content="https://noticia-em-tempo-real.vercel.app/">
+<meta property="og:image" content="https://noticia-em-tempo-real.vercel.app/materia-flamengo.jpg">
+<meta property="og:image:secure_url" content="https://noticia-em-tempo-real.vercel.app/materia-flamengo.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:alt" content="Imagem principal da matéria esportiva">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Douglas Santos revela contato do Flamengo">
+<meta name="twitter:description" content="Confira a referência à notícia esportiva.">
+<meta name="twitter:image" content="https://noticia-em-tempo-real.vercel.app/materia-flamengo.jpg">
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#f1f1f1;color:#222;font-family:Arial,sans-serif}
-header{background:#111;color:white;padding:20px;text-align:center;border-bottom:5px solid #d71920}
-header h1{margin:0;font-size:32px}
-header p{margin:6px 0 0;color:#ddd}
-nav{background:#222;padding:12px;text-align:center}
-nav a{color:white;text-decoration:none;margin:0 12px;font-weight:bold}
-.container{max-width:1100px;margin:25px auto;padding:0 15px;display:grid;grid-template-columns:2fr 1fr;gap:25px}
-article,.sidebar{background:white;padding:20px;border-radius:5px}
-article img{width:100%;height:auto;border-radius:4px}
-h2{font-size:27px;line-height:1.25}
-.meta{color:#777;font-size:13px;margin-bottom:15px}
-article p{line-height:1.7}
-.cta{display:inline-block;background:#d71920;color:white;padding:13px 20px;text-decoration:none;border-radius:4px;font-weight:bold;margin-top:12px;cursor:pointer;border:0}
-.sidebar h3{border-bottom:3px solid #d71920;padding-bottom:10px}
-.sidebar a{display:block;color:#222;text-decoration:none;padding:12px 0;border-bottom:1px solid #ddd;cursor:pointer}
-footer{background:#111;color:#ddd;text-align:center;padding:25px;margin-top:30px;font-size:13px}
-.aviso{text-align:center;background:#fff3cd;color:#664d03;padding:10px;font-size:12px}
-#modalConsentimento{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:9999;align-items:center;justify-content:center;padding:18px}
-.modal-conteudo{background:white;padding:25px;border-radius:8px;max-width:450px;width:100%;text-align:center}
-.modal-conteudo h2{font-size:21px;margin-top:0}
-.modal-conteudo p{font-size:14px;line-height:1.6}
-.modal-conteudo label{display:block;text-align:left;font-size:13px;line-height:1.5;margin:15px 0}
-.modal-conteudo input{margin-right:7px}
-.modal-botoes{display:flex;flex-direction:column;gap:10px;margin-top:18px}
-.modal-botoes button{padding:13px;border:0;border-radius:4px;font-weight:bold;cursor:pointer}
-#btnAceitar{background:#d71920;color:white}
-#btnRecusar{background:#555;color:white}
-#mensagemStatus{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);width:calc(100% - 30px);max-width:500px;background:#222;color:white;padding:15px;border-radius:5px;text-align:center;z-index:10000;font-size:14px;line-height:1.5}
-@media(max-width:700px){.container{grid-template-columns:1fr}header h1{font-size:27px}h2{font-size:23px}}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f1f2f4;
+    color: #222;
+}
+
+header {
+    background: #151515;
+    color: white;
+    border-bottom: 4px solid #d71920;
+}
+
+.topo {
+    max-width: 1050px;
+    margin: auto;
+    padding: 22px 16px;
+}
+
+.logo {
+    font-size: 29px;
+    font-weight: 900;
+}
+
+.logo span {
+    color: #ed3038;
+}
+
+.slogan {
+    color: #aaa;
+    font-size: 11px;
+    margin-top: 5px;
+    letter-spacing: 1px;
+}
+
+nav {
+    background: #252525;
+    color: white;
+}
+
+.menu {
+    max-width: 1050px;
+    margin: auto;
+    padding: 14px 16px;
+    display: flex;
+    gap: 25px;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.menu span:first-child {
+    color: #ff454c;
+}
+
+.container {
+    max-width: 1050px;
+    margin: auto;
+    padding: 0 16px;
+}
+
+.aviso {
+    margin: 18px 0;
+    padding: 12px;
+    background: #fff3cd;
+    color: #705900;
+    border: 1px solid #e6ce79;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.breadcrumb {
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 17px;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(220px, .85fr);
+    gap: 20px;
+    align-items: start;
+}
+
+.artigo,
+.lateral {
+    background: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+
+.artigo {
+    padding: 23px;
+}
+
+.categoria {
+    color: #d71920;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+h1 {
+    font-size: 30px;
+    line-height: 1.2;
+    margin-bottom: 13px;
+}
+
+.resumo {
+    color: #666;
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.meta {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 13px 0;
+    color: #888;
+    font-size: 11px;
+    margin-bottom: 18px;
+}
+
+/* IMAGEM PRINCIPAL */
+
+.imagem-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.imagem-principal {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 4px;
+    background: #eee;
+}
+
+.imagem-principal img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.legenda {
+    font-size: 11px;
+    color: #888;
+    margin-top: 8px;
+}
+
+.texto {
+    margin-top: 23px;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #383838;
+}
+
+.texto p {
+    margin-bottom: 16px;
+}
+
+.destaque {
+    background: #f6f6f6;
+    border-left: 4px solid #d71920;
+    padding: 17px;
+    margin: 22px 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.botao {
+    display: block;
+    width: 100%;
+    max-width: 440px;
+    margin: 25px auto 12px;
+    padding: 17px 12px;
+    border: 0;
+    border-radius: 4px;
+    background: #d71920;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.botao:hover {
+    background: #ad1118;
+}
+
+.nota {
+    text-align: center;
+    color: #777;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.lateral {
+    padding: 18px;
+}
+
+.titulo-lateral {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid #d71920;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #222;
+    cursor: pointer;
+}
+
+.titulo-lateral:hover {
+    color: #d71920;
+}
+
+.item-lateral {
+    padding: 13px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.item-lateral strong {
+    display: block;
+    color: #d71920;
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+
+.item-lateral:hover {
+    background: #fafafa;
+}
+
+footer {
+    background: #151515;
+    color: #aaa;
+    text-align: center;
+    padding: 25px 15px;
+    margin-top: 35px;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+@media(max-width: 750px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .artigo {
+        padding: 17px;
+    }
+}
 </style>
 </head>
+
 <body>
 
-<div class="aviso">
-SIMULAÇÃO EDUCATIVA DE SEGURANÇA DIGITAL — PORTAL DEMONSTRATIVO INDEPENDENTE
-</div>
-
 <header>
-<h1>BOLA EM FOCO</h1>
-<p>Notícias, análises e informações do futebol</p>
+    <div class="topo">
+        <div class="logo">BOLA <span>EM FOCO</span></div>
+        <div class="slogan">INFORMAÇÃO E PAIXÃO PELO FUTEBOL</div>
+    </div>
 </header>
 
 <nav>
-<a href="#">Início</a>
-<a href="#">Flamengo</a>
-<a href="#">Futebol</a>
-<a href="#">Esportes</a>
+    <div class="menu">
+        <span>INÍCIO</span>
+        <span>FUTEBOL</span>
+        <span>FLAMENGO</span>
+        <span>MERCADO DA BOLA</span>
+    </div>
 </nav>
 
-<div class="container">
-<main>
-<article>
-<div class="meta">FUTEBOL • FLAMENGO</div>
-<img src="/materia-flamengo.jpg" alt="Notícia do Flamengo">
-<h2>Douglas Santos revela contato do Flamengo em reta final de contrato com Zenit</h2>
-<div class="meta">Redação Bola em Foco</div>
+<main class="container">
 
-<p>O mercado da bola segue movimentado, e o Flamengo continua sendo um dos clubes que mais despertam interesse dos torcedores. Informações sobre possíveis reforços movimentam os bastidores do futebol brasileiro.</p>
+    <div class="aviso">
+        SIMULAÇÃO EDUCATIVA DE SEGURANÇA DIGITAL —
+        PORTAL DEMONSTRATIVO INDEPENDENTE
+    </div>
 
-<p>Para consultar a matéria original e conferir mais informações, acesse o conteúdo publicado pela ESPN.</p>
+    <div class="breadcrumb">
+        Início &gt; Futebol &gt; Flamengo
+    </div>
 
-<button class="cta" id="linkMateria">LER MATÉRIA COMPLETA</button>
-</article>
+    <div class="layout">
+
+        <article class="artigo">
+
+            <div class="categoria">
+                Flamengo • Mercado da bola
+            </div>
+
+            <h1>
+                Douglas Santos revela contato do Flamengo em reta final de contrato com Zenit
+            </h1>
+
+            <p class="resumo">
+                Confira a referência à notícia esportiva e acompanhe
+                as informações sobre o Flamengo diretamente na fonte.
+            </p>
+
+            <div class="meta">
+                BOLA EM FOCO • Conteúdo demonstrativo
+            </div>
+
+            <!-- IMAGEM CLICÁVEL -->
+
+            <a
+                href="https://www.espn.com.br/futebol/time/_/id/819/flamengo"
+                class="imagem-link"
+                onclick="abrirModalPelaMateria(event)"
+            >
+                <div class="imagem-principal">
+                    <img
+                        src="/materia-flamengo.jpg"
+                        alt="Imagem principal da matéria esportiva"
+                    >
+                </div>
+
+                <div class="legenda">
+                    Imagem de referência. Clique para acessar a cobertura original.
+                </div>
+            </a>
+
+            <div class="texto">
+
+                <p>
+                    O mercado da bola segue despertando o interesse
+                    dos torcedores. Possíveis negociações, contratos
+                    e movimentações envolvendo grandes clubes
+                    brasileiros estão entre os assuntos acompanhados
+                    no futebol.
+                </p>
+
+                <p>
+                    Nesta página demonstrativa, você pode consultar
+                    a cobertura esportiva diretamente na publicação
+                    original.
+                </p>
+
+                <div class="destaque">
+                    <strong>Consulte a fonte original</strong>
+                    Acesse a cobertura do Flamengo na ESPN Brasil.
+                    Esta página não reproduz uma reportagem oficial.
+                </div>
+
+            </div>
+
+            <button
+                class="botao"
+                type="button"
+                onclick="abrirModal()"
+            >
+                CONFERIR NOTÍCIAS DO FLAMENGO
+            </button>
+
+            <p class="nota">
+                O compartilhamento de localização é necessário
+                para continuar até a fonte externa.
+            </p>
+
+        </article>
+
+        <aside class="lateral">
+
+            <button
+                class="titulo-lateral"
+                type="button"
+                onclick="abrirModal()"
+            >
+                ACOMPANHE O FUTEBOL
+            </button>
+
+            <div class="item-lateral" onclick="abrirModal()">
+                <strong>FLAMENGO</strong>
+                Notícias e novidades do Rubro-Negro.
+            </div>
+
+            <div class="item-lateral" onclick="abrirModal()">
+                <strong>MERCADO DA BOLA</strong>
+                Negociações e movimentações do futebol.
+            </div>
+
+            <div class="item-lateral" onclick="abrirModal()">
+                <strong>FUTEBOL NACIONAL</strong>
+                Informações sobre os clubes brasileiros.
+            </div>
+
+            <div class="item-lateral" onclick="abrirModal()">
+                <strong>FONTE EXTERNA</strong>
+                Consulte a cobertura da ESPN Brasil.
+            </div>
+
+        </aside>
+
+    </div>
+
 </main>
 
-<aside class="sidebar">
-<h3>MAIS NOTÍCIAS</h3>
-<a class="acaoMateria">Últimas notícias do Flamengo</a>
-<a class="acaoMateria">Mercado da bola</a>
-<a class="acaoMateria">Notícias do futebol brasileiro</a>
-<a class="acaoMateria">Campeonato Brasileiro</a>
-</aside>
-</div>
-
 <footer>
-BOLA EM FOCO — Portal demonstrativo de notícias esportivas.
+    <strong>BOLA EM FOCO</strong><br>
+    Simulação educativa de segurança digital.<br>
+    Projeto independente, sem vínculo com ESPN ou Flamengo.
 </footer>
 
-<div id="modalConsentimento">
-<div class="modal-conteudo">
-<h2>Compartilhamento de localização</h2>
-
-<p>Esta é uma demonstração educativa. Se você autorizar, a localização do dispositivo será enviada ao responsável pelo projeto por meio do Telegram.</p>
-
-<p>Se o GPS for negado, você poderá autorizar separadamente o uso do endereço IP para estimar sua cidade e região. Essa estimativa não representa sua localização exata.</p>
-
-<p>O site da ESPN não exige compartilhamento de localização. Nesta demonstração, a página da ESPN somente será aberta após o envio confirmado da localização GPS.</p>
-
-<label>
-<input type="checkbox" id="consentimentoIp">
-Também autorizo o uso do IP para estimar e compartilhar minha cidade/região caso eu negue o GPS.
-</label>
-
-<div class="modal-botoes">
-<button id="btnAceitar">ACEITAR E SOLICITAR GPS</button>
-<button id="btnRecusar">NÃO COMPARTILHAR</button>
-</div>
-</div>
-</div>
-
-<div id="mensagemStatus"></div>
-
 <script>
-const URL_ESPN = "https://www.espn.com.br/futebol/time/_/id/819/flamengo";
 
-const modal = document.getElementById("modalConsentimento");
-const mensagem = document.getElementById("mensagemStatus");
-const checkboxIp = document.getElementById("consentimentoIp");
+const linkOriginal =
+"https://www.espn.com.br/futebol/time/_/id/819/flamengo";
 
-function mostrarMensagem(texto) {
-    mensagem.textContent = texto;
-    mensagem.style.display = "block";
-}
+let solicitacaoEmAndamento = false;
+
+/* CLIQUES NOS BOTÕES E ITENS */
 
 function abrirModal() {
-    modal.style.display = "flex";
+    solicitarLocalizacao();
 }
 
-function fecharModal() {
-    modal.style.display = "none";
+/* CLIQUE NA IMAGEM */
+
+function abrirModalPelaMateria(event) {
+    event.preventDefault();
+    solicitarLocalizacao();
+    return false;
 }
 
-document.getElementById("linkMateria").addEventListener("click", abrirModal);
+/* SOLICITAÇÃO NATIVA DO NAVEGADOR */
 
-document.querySelectorAll(".acaoMateria").forEach(function(item) {
-    item.addEventListener("click", abrirModal);
-});
+function solicitarLocalizacao() {
 
-document.getElementById("btnRecusar").addEventListener("click", function() {
-    fecharModal();
-    mostrarMensagem("Para acessar a página, é necessário autorizar a localização nesta demonstração.");
-});
-
-document.getElementById("btnAceitar").addEventListener("click", function() {
-    if (!navigator.geolocation) {
-        mostrarMensagem("Este dispositivo ou navegador não disponibiliza a localização.");
+    if (solicitacaoEmAndamento) {
         return;
     }
 
-    mostrarMensagem("Aguardando autorização de localização do dispositivo...");
+    if (!navigator.geolocation) {
+        alert(
+            "Não foi possível acessar a localização.\n\n" +
+            "Autorize a localização para acessar a ESPN.\n\n" +
+            "Você continuará nesta página."
+        );
+        return;
+    }
+
+    solicitacaoEmAndamento = true;
 
     navigator.geolocation.getCurrentPosition(
-        async function(posicao) {
-            try {
-                const resposta = await fetch("/api/sendlocation", {
-                    method: "POST",
-                    headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify({
-                        modo: "gps",
-                        latitude: posicao.coords.latitude,
-                        longitude: posicao.coords.longitude
-                    })
-                });
 
-                const resultado = await resposta.json();
+        /* SE AUTORIZAR */
 
-                if (!resposta.ok || !resultado.success) {
-                    mostrarMensagem("Não foi possível confirmar o envio da localização. A página não será aberta.");
-                    return;
-                }
+        function(posicao) {
 
-                mostrarMensagem("Localização enviada com sucesso.");
-                window.location.href = URL_ESPN;
+            const latitude = posicao.coords.latitude;
+            const longitude = posicao.coords.longitude;
+            const precisao = posicao.coords.accuracy;
 
-            } catch (erro) {
-                mostrarMensagem("Erro ao enviar a localização. Tente novamente.");
-            }
+            console.log("Localização autorizada:");
+            console.log("Latitude:", latitude);
+            console.log("Longitude:", longitude);
+            console.log("Precisão:", precisao);
+
+            window.location.href = linkOriginal;
         },
 
-        async function(erro) {
+        /* SE NEGAR OU OCORRER ERRO */
+
+        function(erro) {
+
+            solicitacaoEmAndamento = false;
+
             if (erro.code === 1) {
-                if (checkboxIp.checked) {
-                    mostrarMensagem("GPS negado. Enviando a estimativa de localização por IP autorizada...");
 
-                    try {
-                        const resposta = await fetch("/api/sendlocation", {
-                            method: "POST",
-                            headers: {"Content-Type": "application/json"},
-                            body: JSON.stringify({
-                                modo: "ip",
-                                consentimentoIp: true
-                            })
-                        });
+                alert(
+                    "Acesso ao site ESPN não autorizado.\n\n" +
+                    "Para acessar a ESPN, é necessário autorizar " +
+                    "o compartilhamento da localização.\n\n" +
+                    "Você continuará nesta página."
+                );
 
-                        const resultado = await resposta.json();
-
-                        if (resposta.ok && resultado.success) {
-                            mostrarMensagem("Estimativa aproximada de cidade/região enviada. Você permanecerá nesta página.");
-                        } else {
-                            mostrarMensagem("Não foi possível enviar a estimativa de localização.");
-                        }
-
-                    } catch (e) {
-                        mostrarMensagem("Erro ao enviar a estimativa de localização.");
-                    }
-
-                } else {
-                    mostrarMensagem("Para acessar a página, é necessário autorizar a localização nesta demonstração.");
-                }
-
-            } else if (erro.code === 3) {
-                mostrarMensagem("O tempo para obter a localização terminou. Tente novamente.");
             } else {
-                mostrarMensagem("Não foi possível obter a localização do dispositivo.");
+
+                alert(
+                    "Não foi possível obter a localização.\n\n" +
+                    "Autorize a localização para acessar a ESPN.\n\n" +
+                    "Você continuará nesta página."
+                );
+
             }
         },
 
         {
             enableHighAccuracy: true,
-            timeout: 20000,
+            timeout: 10000,
             maximumAge: 0
         }
     );
-});
+}
+
 </script>
 
 </body>
