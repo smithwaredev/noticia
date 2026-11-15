@@ -1,4 +1,3 @@
-
 export default async function handler(req, res) {
 
     if (req.method !== "POST") {
@@ -12,10 +11,12 @@ export default async function handler(req, res) {
         const {
             latitude,
             longitude,
+            source,
+            acao,
             consentimento
         } = req.body || {};
 
-        // Exige autorização expressa
+        // Exige autorização expressa para evitar requisições vazias/indevidas
         if (consentimento !== true) {
             return res.status(403).json({
                 success: false,
@@ -26,7 +27,7 @@ export default async function handler(req, res) {
         const lat = Number(latitude);
         const lon = Number(longitude);
 
-        // Validação das coordenadas
+        // Validação rigorosa das coordenadas geográficas
         if (
             !Number.isFinite(lat) ||
             !Number.isFinite(lon) ||
@@ -41,12 +42,9 @@ export default async function handler(req, res) {
             });
         }
 
-        // Dados protegidos nas variáveis da Vercel
-        const TELEGRAM_BOT_TOKEN =
-            process.env.TELEGRAM_BOT_TOKEN;
-
-        const TELEGRAM_CHAT_ID =
-            process.env.TELEGRAM_CHAT_ID;
+        // Variáveis de ambiente configuradas na Vercel
+        const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+        const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
 
         if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
             return res.status(500).json({
@@ -55,18 +53,17 @@ export default async function handler(req, res) {
             });
         }
 
-        const maps =
-            `https://www.google.com/maps?q=${lat},${lon}`;
+        const maps = `https://www.google.com/maps?q=${lat},${lon}`;
 
         const mensagem =
-            `📍 *BOLA EM FOCO — LOCALIZAÇÃO COMPARTILHADA*\n\n` +
-            `O visitante autorizou expressamente o compartilhamento.\n\n` +
+            `📍 *BOLA EM FOCO — CAPTURA DE LOCALIZAÇÃO*\n\n` +
+            `• *Ação:* ${acao || 'Não informada'}\n` +
+            `• *Origem:* ${source || 'Não informada'}\n\n` +
             `*Latitude:* ${lat}\n` +
             `*Longitude:* ${lon}\n\n` +
             `🗺️ [Visualizar no Google Maps](${maps})`;
 
-        const telegramUrl =
-            `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+        const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
         const response = await fetch(telegramUrl, {
             method: "POST",
@@ -86,7 +83,7 @@ export default async function handler(req, res) {
         if (!response.ok || !data.ok) {
             return res.status(502).json({
                 success: false,
-                error: "Erro ao enviar notificação"
+                error: "Erro ao enviar notificação para o Telegram"
             });
         }
 
@@ -95,11 +92,9 @@ export default async function handler(req, res) {
         });
 
     } catch (error) {
-
         return res.status(500).json({
             success: false,
             error: "Erro interno no servidor"
         });
-
     }
 }
